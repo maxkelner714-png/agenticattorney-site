@@ -2,41 +2,322 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<title>Privacy Policy: AgenticAttorney.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · AgenticAttorney.com</title>
+<link rel="stylesheet" href="/assets/fonts.css">
 <meta name="description" content="Privacy Policy for AgenticAttorney.com.">
-<link rel="canonical" href="https://agenticattorney.com/privacy">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="AgenticAttorney.com">
-<meta property="og:url" content="https://agenticattorney.com/privacy">
-<meta property="og:title" content="Privacy Policy: AgenticAttorney.com">
-<meta property="og:description" content="Privacy Policy for AgenticAttorney.com.">
-<meta property="og:image" content="https://agenticattorney.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgenticAttorney.com">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Privacy Policy: AgenticAttorney.com">
-<meta name="twitter:description" content="Privacy Policy for AgenticAttorney.com.">
-<meta name="twitter:image" content="https://agenticattorney.com/og-image.png">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F3EC">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#262624">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
-<link rel="stylesheet" href="/assets/page.css">
-<script src="/assets/theme-init.js"></script>
+<script src="/assets/privacy-1.js"></script>
+<style>
+/* Shares the home page's tokens: warm off-white, serif headings, terracotta accent. */
+:root {
+  --bg: #F6F3EC;
+  --surface: #FDFCF9;
+  --fg: #29261F;
+  --muted: #6B665C;
+  --line: #E0DACD;
+  --accent: #B5552F;
+  --accent-hover: #9E4826;
+  --on-accent: #FFFFFF;
+  --bubble: #EAE4D7;
+  --shadow: 0 1px 2px rgba(60, 45, 30, .06), 0 4px 16px rgba(60, 45, 30, .06);
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-ui: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --col: 42rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #262624; --surface: #30302D; --fg: #EEEAE1; --muted: #A9A498;
+    --line: #42413C; --accent: #D97757; --accent-hover: #E58C6E; --on-accent: #1E1E1C;
+    --bubble: #3A3935;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #262624; --surface: #30302D; --fg: #EEEAE1; --muted: #A9A498;
+  --line: #42413C; --accent: #D97757; --accent-hover: #E58C6E; --on-accent: #1E1E1C;
+  --bubble: #3A3935;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
 
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.5 var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--accent-hover); }
+
+/* Top bar */
+.topbar {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 54px;
+  border-bottom: 1px solid var(--line); background: var(--bg);
+  position: sticky; top: 0; z-index: 2;
+}
+.topbar-inner { width: 100%; max-width: var(--col); margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; min-width: 0; }
+.mark {
+  width: 28px; height: 28px; flex: none; border-radius: 8px; background: var(--accent); color: var(--on-accent);
+  display: grid; place-items: center; font: 500 19px/1 var(--font-display);
+}
+.brand-name { font: 500 18px/1.1 var(--font-display); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.theme-toggle {
+  margin-left: auto; flex: none; display: flex; align-items: center; gap: 8px; background: none;
+  border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; font-size: 13px; color: var(--muted);
+}
+
+/* Reading column */
+.page { max-width: var(--col); margin: 0 auto; padding: 40px 16px 64px; }
+.eyebrow { font-size: 13px; color: var(--muted); margin: 0 0 10px; letter-spacing: .01em; }
+h1 {
+  margin: 0 0 8px; font: 400 clamp(30px, 4.6vw, 40px)/1.15 var(--font-display); letter-spacing: -.015em; text-wrap: balance;
+}
+.meta { color: var(--muted); font-size: 13.5px; margin: 0 0 28px; }
+.meta .placeholder { font-size: inherit; }
+
+/* Plain-English summary */
+.summary {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  padding: 18px 20px 6px; margin: 0 0 32px;
+}
+.summary h2 { font: 500 12px/1 var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.summary ul { margin: 0 0 12px; padding-left: 1.2em; font: 16px/1.55 var(--font-display); }
+.summary li { margin-bottom: .45em; }
+.summary p { font: 16px/1.55 var(--font-display); margin: 0 0 12px; }
+
+/* Contents */
+.toc { margin: 0 0 36px; padding: 0; font-size: 14px; }
+.toc h2 { font: 500 12px/1 var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.toc ol { margin: 0; padding-left: 1.4em; columns: 2; column-gap: 24px; }
+.toc li { margin-bottom: 4px; break-inside: avoid; }
+.toc a { color: var(--fg); text-decoration: none; }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+/* Body copy */
+.body { font: 17px/1.6 var(--font-display); }
+.body section { margin: 0 0 30px; scroll-margin-top: 70px; }
+.body h2 { font: 500 22px/1.3 var(--font-display); margin: 0 0 .5em; letter-spacing: -.01em; }
+.body h3 { font: 500 18px/1.3 var(--font-display); margin: 1.2em 0 .4em; }
+.body p { margin: 0 0 .8em; }
+.body ul, .body ol { margin: 0 0 .8em; padding-left: 1.3em; }
+.body li { margin-bottom: .35em; }
+.body b, .body strong { font-weight: 500; }
+.body .why { font: 14px/1.5 var(--font-ui); color: var(--muted); border-left: 2px solid var(--line); padding-left: 12px; margin: 0 0 .8em; }
+.body .caps { font: 500 15px/1.55 var(--font-ui); text-transform: uppercase; letter-spacing: .01em; }
+.body table { width: 100%; border-collapse: collapse; font: 14.5px/1.45 var(--font-ui); margin: 0 0 1em; }
+.body th, .body td { text-align: left; vertical-align: top; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); }
+.body th { font-weight: 500; color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; }
+.placeholder { border-bottom: 1px dashed var(--muted); color: var(--muted); }
+address { font-style: normal; }
+
+/* Footer */
+.foot { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; margin: 0; padding: 0; list-style: none; }
+.foot-links a { color: var(--fg); text-decoration: none; }
+.foot-links a:hover { color: var(--accent); text-decoration: underline; }
+.foot-links a[aria-current="page"] { color: var(--muted); }
+.fineprint { font-size: 11.5px; line-height: 1.45; color: var(--muted); margin: 0; }
+.fineprint b { font-weight: 500; color: var(--fg); }
+
+@media (max-width: 560px) {
+  .toc ol { columns: 1; }
+  .body { font-size: 16.5px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print {
+  .topbar, .theme-toggle { display: none; }
+  body { background: #fff; color: #000; }
+  .summary { box-shadow: none; }
+}
+</style>
 </head>
 <body>
-<div class="page"><header><span class="mark" aria-hidden="true">§</span><a href="/">AgenticAttorney.com</a></header>
-<h1>Privacy Policy</h1>
-<div class="notice"><p>This page is being prepared. Until it is published, questions about privacy policy can go to <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a>.</p></div>
-<p class="legal">AgenticAttorney.com is not a law firm and does not give legal advice.</p>
-<p><a class="home-link" href="/">Back to the home page</a></p>
-</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="./" aria-label="AgenticAttorney.com home">
+      <span class="mark" aria-hidden="true">§</span>
+      <span class="brand-name">AgenticAttorney.com</span>
+    </a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+      <span>Theme</span><span id="themeLabel">System</span>
+    </button>
+  </div>
+</header>
 
+<main class="page">
+  <p class="eyebrow">Legal</p>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Effective <span class="placeholder">[EFFECTIVE DATE]</span></p>
+
+  <section class="summary" aria-labelledby="sum-h">
+    <h2 id="sum-h">In plain English</h2>
+    <ul>
+      <li>We collect almost nothing. The Site has no accounts, no forms, no tracking cookies, no analytics and no advertising.</li>
+      <li>The only information you send us is what you choose to email to info@agenticattorney.com, such as a match request or an attorney application.</li>
+      <li>The chat, the self-audit and the demo fit check run in your browser tab. Nothing you type there is sent to us.</li>
+      <li>Our host keeps routine server logs for a limited time, and Google receives a font request when a page loads.</li>
+      <li>If we introduce you to an attorney, we share your request with them so they know what you asked for.</li>
+      <li>We never sell personal information or share it for advertising. Email us to see, correct or delete what we hold.</li>
+      <li>Email is not confidential or privileged. Keep confidential details for a signed engagement with an attorney.</li>
+    </ul>
+  </section>
+
+  <nav class="toc" aria-labelledby="toc-h">
+    <h2 id="toc-h">Contents</h2>
+    <ol>
+      <li><a href="#short-version">The short version</a></li>
+      <li><a href="#email">Information you send us by email</a></li>
+      <li><a href="#your-browser">What stays in your browser</a></li>
+      <li><a href="#automatic">Information collected automatically</a></li>
+      <li><a href="#how-we-use">How we use information</a></li>
+      <li><a href="#sharing">How we share information</a></li>
+      <li><a href="#not-confidential">Email is not confidential or privileged</a></li>
+      <li><a href="#retention">How long we keep information</a></li>
+      <li><a href="#your-rights">Your choices and rights</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#children">Children</a></li>
+      <li><a href="#where-processed">Where information is processed</a></li>
+      <li><a href="#changes">Changes to this policy</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <div class="body">
+  <section id="short-version">
+    <h2>1. The short version</h2>
+    <p>This policy explains what AgenticAttorney.com (the Site) collects, why, and what you can do about it. The Site is run by <span class="placeholder">[LEGAL ENTITY NAME]</span> (we, us).</p>
+    <p>Today, this is everything the Site collects or passes on:</p>
+    <ul>
+      <li>What you choose to email us.</li>
+      <li>Routine server logs kept by our hosting provider.</li>
+      <li>A font request that goes to Google when a page loads.</li>
+      <li>One theme preference that stays in your browser.</li>
+    </ul>
+    <p>That is the whole list. There are no accounts, no logins, no web forms, no payments, no tracking cookies, no analytics and no advertising trackers. We do not sell personal information.</p>
+    <p class="why">The Site is not a law firm and does not give legal advice. See our <a href="disclaimers.html">Disclaimers</a> and <a href="terms.html">Terms of Use</a>.</p>
+  </section>
+  <section id="email">
+    <h2>2. Information you send us by email</h2>
+    <p>Nothing leaves your device until you click a link that opens your own email app with a message addressed to <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a>. You can edit or delete anything in that message before you send it.</p>
+    <h3>Match requests</h3>
+    <p>If you ask to be matched with an attorney, your email includes your five answers from the guided chat: your state, the kind of help you need, your working style, how much of your business runs on agents, and your timing. It also includes your email address, the name attached to your email account, and anything else you add.</p>
+    <h3>Attorney applications</h3>
+    <p>If you are an attorney who wants to join, your email includes the publicly available information you choose to share: your name, the states where you are licensed and your bar numbers, practice areas, firm name and size, website and public profiles, why you are interested in agentic businesses, and whether you could contribute AI credits or usage toward building the Platform. Contributions are separate from introductions, which cost attorneys nothing. See our <a href="terms.html">Terms of Use</a>.</p>
+    <p>We did not ask for confidential details, and you should not send any. That includes client information, trade secrets and the facts of a dispute.</p>
+  </section>
+  <section id="your-browser">
+    <h2>3. What stays in your browser</h2>
+    <p>The guided chat is a scripted flow that runs entirely in your browser. It is not a live AI model. The self-audit, the demo fit check and anything you type in the chat stay in your browser tab and are not sent to us or to anyone else.</p>
+    <p>The Site stores one preference in your browser's local storage under the key <code>aa-theme</code>, which remembers whether you chose the system, light or dark theme. It is not a cookie, it is not sent to us, and it identifies no one. Clearing your browser's site data removes it.</p>
+    <p>If we add a live AI assistant later, we will update this policy before anything you type in the chat leaves your device.</p>
+  </section>
+  <section id="automatic">
+    <h2>4. Information collected automatically</h2>
+    <h3>Server logs</h3>
+    <p>The Site is hosted by Netlify. Like most hosts, Netlify keeps server access logs when you load a page: your IP address, your browser and device type, the pages you request, the address of the page that sent you to us, and the time of each request. Netlify keeps these logs for a limited time under its own privacy policy. We use them, if at all, to keep the Site running and secure.</p>
+    <h3>Fonts</h3>
+    <p>The Site's fonts load from Google Fonts. When a page loads, your browser asks Google for the font files, and Google receives your IP address and browser details in that request. Google's privacy policy explains how it handles that information. We do not receive it.</p>
+    <h3>Cookies and tracking</h3>
+    <p>We set no tracking cookies. We use no analytics, no pixels and no advertising trackers. Because we do not sell personal information or share it for advertising, there is nothing for a Global Privacy Control or Do Not Track signal to switch off.</p>
+    <h3>Links to other sites</h3>
+    <p>The Site links to state bar lawyer referral services and other third-party sites, which have their own privacy policies. If we add explainer videos hosted by a third party, that provider may collect information when you play them, and we will say so here.</p>
+  </section>
+  <section id="how-we-use">
+    <h2>5. How we use information</h2>
+    <p>We use the information you send us to:</p>
+    <ul>
+      <li>Handle your match request or attorney application.</li>
+      <li>Introduce you to an attorney if there is a good fit, or tell you plainly if there is not.</li>
+      <li>Reply to you and answer your questions.</li>
+      <li>Keep the Site running and secure.</li>
+      <li>Meet our legal obligations.</li>
+      <li>Learn, from the requests and applications we receive, how to improve the Platform.</li>
+    </ul>
+    <p>We do not build advertising profiles. We review every match request and application before we reply.</p>
+  </section>
+  <section id="sharing">
+    <h2>6. How we share information</h2>
+    <p>We share information in a few limited cases:</p>
+    <ul>
+      <li><strong>With the attorney we introduce you to.</strong> If we find a good fit, we share your match request with that attorney so they know what you asked for, and we send you their contact details. From then on, what you tell the attorney is between you and them. The attorney is independent, is not our agent, and is separately responsible for how they handle your information under their own professional rules.</li>
+      <li><strong>With service providers.</strong> Companies that host the Site and our email, such as Netlify, process information on our behalf and may use it only to provide those services.</li>
+      <li><strong>When the law requires, or to protect someone.</strong> We may disclose information to comply with a law, court order or lawful request, or to protect the rights, safety or property of anyone.</li>
+      <li><strong>If the business changes hands.</strong> If <span class="placeholder">[LEGAL ENTITY NAME]</span> is sold, merged or reorganized, information may transfer to the new owner, and we will post a notice on the Site.</li>
+    </ul>
+    <p>We never sell personal information. We never share it for advertising, including cross-context behavioral advertising. We have not done either in the past twelve months.</p>
+  </section>
+  <section id="not-confidential">
+    <h2>7. Email is not confidential or privileged</h2>
+    <p>Email travels across networks we do not control, and sending it to us creates no attorney-client relationship. We are not a law firm. Nothing you send us is protected by attorney-client privilege, and we cannot promise it will stay confidential.</p>
+    <p>So keep it general. Tell us your state, what kind of help you need and your timing. Hold the confidential details for the attorney, after you have signed an engagement letter with them. Privilege, where it applies, is between you and that attorney, never with us.</p>
+  </section>
+  <section id="retention">
+    <h2>8. How long we keep information</h2>
+    <p>We keep the email you send us for as long as we need it to handle your request, and for a reasonable period afterwards for our records and for legal reasons. For a match request, that means long enough to make the introduction and follow up. For an attorney application, that means while we consider it and, if you join, while you take part in the Platform.</p>
+    <p>You can ask us to delete your information earlier. See section 9. Server logs are kept by Netlify for a limited time under its own policy, and we do not normally keep our own copies. The theme preference lives in your browser until you clear it.</p>
+  </section>
+  <section id="your-rights">
+    <h2>9. Your choices and rights</h2>
+    <p>Wherever you live, you can email <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a> to ask what information we hold about you, to correct it, or to delete it. We will respond within 45 days. We will not treat you differently for asking.</p>
+    <p>To verify a request, we will reply to the address you wrote from and ask you to confirm from that same address. If someone asks on your behalf, we may ask you to confirm it directly.</p>
+    <h3>California residents</h3>
+    <p>This section is our notice at collection under the California Consumer Privacy Act, as amended by the California Privacy Rights Act. We honor these rights whether or not the law's thresholds apply to us.</p>
+    <ul>
+      <li><strong>Categories we collect:</strong> identifiers (name, email address, IP address); professional information you include in an attorney application (bar numbers, practice areas, firm details); the contents of your email; and internet activity from server logs (browser type, pages requested, time).</li>
+      <li><strong>Purposes and retention:</strong> as described in sections 5 and 8.</li>
+      <li><strong>Sale and sharing:</strong> none. We do not sell personal information or share it for cross-context behavioral advertising.</li>
+      <li><strong>Your rights:</strong> to know what we collect and how we use it, to delete it, to correct it, and not to be discriminated against for exercising these rights.</li>
+    </ul>
+    <h3>Nevada residents</h3>
+    <p>We do not sell covered information as Nevada law defines it. If you want to submit an opt-out request anyway, email us and we will record it.</p>
+    <h3>Texas and New York residents</h3>
+    <p>You have the same rights to know, correct and delete described above. Email us and we will respond within 45 days.</p>
+  </section>
+  <section id="security">
+    <h2>10. Security</h2>
+    <p>We take reasonable measures to protect the information we hold, in keeping with the small amount we collect. Still, email travels across networks we do not control, and no method of transmission or storage is perfect. We cannot guarantee security. That is one more reason not to send confidential details by email.</p>
+  </section>
+  <section id="children">
+    <h2>11. Children</h2>
+    <p>The Site is for businesses and attorneys. It is not directed to anyone under 18, and we do not knowingly collect personal information from anyone under 18. If you believe a minor has sent us information, email us and we will delete it.</p>
+  </section>
+  <section id="where-processed">
+    <h2>12. Where information is processed</h2>
+    <p>We are based in the United States, and the information we hold is stored and processed there, including by our service providers. If you visit from somewhere else, you understand that your information will be handled in the United States, where privacy laws may differ from those where you live.</p>
+  </section>
+  <section id="changes">
+    <h2>13. Changes to this policy</h2>
+    <p>We may update this policy as the Site changes, for example if we add a live assistant, host videos with a third party, or add analytics. When we do, we will change the effective date at the top of this page. If a change is material, we will also say so on the Site. Using the Site after a change means you accept the updated policy.</p>
+  </section>
+  <section id="contact">
+    <h2>14. Contact</h2>
+    <p>Questions, requests and complaints about privacy go to:</p>
+    <address>
+      <span class="placeholder">[LEGAL ENTITY NAME]</span><br>
+      <span class="placeholder">[MAILING ADDRESS]</span><br>
+      <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a>
+    </address>
+    <p>Put "Privacy" in the subject line so we can find it quickly.</p>
+  </section>
+  </div>
+
+  <footer class="foot">
+    <ul class="foot-links">
+      <li><a href="./">Home</a></li>
+      <li><a href="terms.html">Terms of Use</a></li>
+      <li><a href="privacy.html" aria-current="page">Privacy Policy</a></li>
+      <li><a href="disclaimers.html">Disclaimers</a></li>
+      <li><a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a></li>
+    </ul>
+    <p class="fineprint"><b>AgenticAttorney.com</b> is not a law firm and does not give legal advice. Matching currently covers New York, California, Texas and Nevada. No attorney-client relationship exists until you sign an engagement letter with an attorney.</p>
+  </footer>
+</main>
+
+<script src="/assets/privacy-2.js"></script>
 </body>
 </html>

@@ -2,41 +2,258 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<title>Disclaimers: AgenticAttorney.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disclaimers · AgenticAttorney.com</title>
+<link rel="stylesheet" href="/assets/fonts.css">
 <meta name="description" content="Disclaimers for AgenticAttorney.com.">
-<link rel="canonical" href="https://agenticattorney.com/disclaimers">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="AgenticAttorney.com">
-<meta property="og:url" content="https://agenticattorney.com/disclaimers">
-<meta property="og:title" content="Disclaimers: AgenticAttorney.com">
-<meta property="og:description" content="Disclaimers for AgenticAttorney.com.">
-<meta property="og:image" content="https://agenticattorney.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgenticAttorney.com">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Disclaimers: AgenticAttorney.com">
-<meta name="twitter:description" content="Disclaimers for AgenticAttorney.com.">
-<meta name="twitter:image" content="https://agenticattorney.com/og-image.png">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F3EC">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#262624">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
-<link rel="stylesheet" href="/assets/page.css">
-<script src="/assets/theme-init.js"></script>
+<script src="/assets/disclaimers-1.js"></script>
+<style>
+/* Shares the home page's tokens: warm off-white, serif headings, terracotta accent. */
+:root {
+  --bg: #F6F3EC;
+  --surface: #FDFCF9;
+  --fg: #29261F;
+  --muted: #6B665C;
+  --line: #E0DACD;
+  --accent: #B5552F;
+  --accent-hover: #9E4826;
+  --on-accent: #FFFFFF;
+  --bubble: #EAE4D7;
+  --shadow: 0 1px 2px rgba(60, 45, 30, .06), 0 4px 16px rgba(60, 45, 30, .06);
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-ui: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --col: 42rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #262624; --surface: #30302D; --fg: #EEEAE1; --muted: #A9A498;
+    --line: #42413C; --accent: #D97757; --accent-hover: #E58C6E; --on-accent: #1E1E1C;
+    --bubble: #3A3935;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #262624; --surface: #30302D; --fg: #EEEAE1; --muted: #A9A498;
+  --line: #42413C; --accent: #D97757; --accent-hover: #E58C6E; --on-accent: #1E1E1C;
+  --bubble: #3A3935;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
 
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.5 var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--accent-hover); }
+
+/* Top bar */
+.topbar {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 54px;
+  border-bottom: 1px solid var(--line); background: var(--bg);
+  position: sticky; top: 0; z-index: 2;
+}
+.topbar-inner { width: 100%; max-width: var(--col); margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; min-width: 0; }
+.mark {
+  width: 28px; height: 28px; flex: none; border-radius: 8px; background: var(--accent); color: var(--on-accent);
+  display: grid; place-items: center; font: 500 19px/1 var(--font-display);
+}
+.brand-name { font: 500 18px/1.1 var(--font-display); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.theme-toggle {
+  margin-left: auto; flex: none; display: flex; align-items: center; gap: 8px; background: none;
+  border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; font-size: 13px; color: var(--muted);
+}
+
+/* Reading column */
+.page { max-width: var(--col); margin: 0 auto; padding: 40px 16px 64px; }
+.eyebrow { font-size: 13px; color: var(--muted); margin: 0 0 10px; letter-spacing: .01em; }
+h1 {
+  margin: 0 0 8px; font: 400 clamp(30px, 4.6vw, 40px)/1.15 var(--font-display); letter-spacing: -.015em; text-wrap: balance;
+}
+.meta { color: var(--muted); font-size: 13.5px; margin: 0 0 28px; }
+.meta .placeholder { font-size: inherit; }
+
+/* Plain-English summary */
+.summary {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  padding: 18px 20px 6px; margin: 0 0 32px;
+}
+.summary h2 { font: 500 12px/1 var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.summary ul { margin: 0 0 12px; padding-left: 1.2em; font: 16px/1.55 var(--font-display); }
+.summary li { margin-bottom: .45em; }
+.summary p { font: 16px/1.55 var(--font-display); margin: 0 0 12px; }
+
+/* Contents */
+.toc { margin: 0 0 36px; padding: 0; font-size: 14px; }
+.toc h2 { font: 500 12px/1 var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.toc ol { margin: 0; padding-left: 1.4em; columns: 2; column-gap: 24px; }
+.toc li { margin-bottom: 4px; break-inside: avoid; }
+.toc a { color: var(--fg); text-decoration: none; }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+/* Body copy */
+.body { font: 17px/1.6 var(--font-display); }
+.body section { margin: 0 0 30px; scroll-margin-top: 70px; }
+.body h2 { font: 500 22px/1.3 var(--font-display); margin: 0 0 .5em; letter-spacing: -.01em; }
+.body h3 { font: 500 18px/1.3 var(--font-display); margin: 1.2em 0 .4em; }
+.body p { margin: 0 0 .8em; }
+.body ul, .body ol { margin: 0 0 .8em; padding-left: 1.3em; }
+.body li { margin-bottom: .35em; }
+.body b, .body strong { font-weight: 500; }
+.body .why { font: 14px/1.5 var(--font-ui); color: var(--muted); border-left: 2px solid var(--line); padding-left: 12px; margin: 0 0 .8em; }
+.body .caps { font: 500 15px/1.55 var(--font-ui); text-transform: uppercase; letter-spacing: .01em; }
+.body table { width: 100%; border-collapse: collapse; font: 14.5px/1.45 var(--font-ui); margin: 0 0 1em; }
+.body th, .body td { text-align: left; vertical-align: top; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); }
+.body th { font-weight: 500; color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; }
+.placeholder { border-bottom: 1px dashed var(--muted); color: var(--muted); }
+address { font-style: normal; }
+
+/* Footer */
+.foot { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; margin: 0; padding: 0; list-style: none; }
+.foot-links a { color: var(--fg); text-decoration: none; }
+.foot-links a:hover { color: var(--accent); text-decoration: underline; }
+.foot-links a[aria-current="page"] { color: var(--muted); }
+.fineprint { font-size: 11.5px; line-height: 1.45; color: var(--muted); margin: 0; }
+.fineprint b { font-weight: 500; color: var(--fg); }
+
+@media (max-width: 560px) {
+  .toc ol { columns: 1; }
+  .body { font-size: 16.5px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print {
+  .topbar, .theme-toggle { display: none; }
+  body { background: #fff; color: #000; }
+  .summary { box-shadow: none; }
+}
+</style>
 </head>
 <body>
-<div class="page"><header><span class="mark" aria-hidden="true">§</span><a href="/">AgenticAttorney.com</a></header>
-<h1>Disclaimers</h1>
-<div class="notice"><p>This page is being prepared. Until it is published, questions about disclaimers can go to <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a>.</p></div>
-<p class="legal">AgenticAttorney.com is not a law firm and does not give legal advice.</p>
-<p><a class="home-link" href="/">Back to the home page</a></p>
-</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="./" aria-label="AgenticAttorney.com home">
+      <span class="mark" aria-hidden="true">§</span>
+      <span class="brand-name">AgenticAttorney.com</span>
+    </a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+      <span>Theme</span><span id="themeLabel">System</span>
+    </button>
+  </div>
+</header>
 
+<main class="page">
+  <p class="eyebrow">Legal</p>
+  <h1>Disclaimers</h1>
+  <p class="meta">Effective <span class="placeholder">[EFFECTIVE DATE]</span></p>
+
+  <section class="summary" aria-labelledby="sum-h">
+    <h2 id="sum-h">In plain English</h2>
+    <ul>
+      <li>AgenticAttorney.com is not a law firm, and nothing on this site is legal advice.</li>
+      <li>We introduce businesses to independent attorneys. An introduction is not a recommendation, a guarantee, or an endorsement.</li>
+      <li>No attorney-client relationship exists with us, ever, or with an attorney until you both sign an engagement letter.</li>
+      <li>Matching currently covers New York, California, Texas and Nevada. We do not promise a match, a reply, or any result.</li>
+      <li>The guided assistant is a scripted flow in your browser, not a person and not a lawyer. The self-audit and explainers are educational only.</li>
+      <li>Nothing you type here or email us is confidential or privileged. Save the details for the attorney you engage.</li>
+      <li>Attorneys who use the software stay fully responsible for their own professional rules.</li>
+    </ul>
+  </section>
+
+  <nav class="toc" aria-labelledby="toc-h">
+    <h2 id="toc-h">Contents</h2>
+    <ol>
+      <li><a href="#not-a-law-firm">Not a law firm, not legal advice</a></li>
+      <li><a href="#no-attorney-client-relationship">No attorney-client relationship</a></li>
+      <li><a href="#introductions-not-recommendations">Introductions, not recommendations</a></li>
+      <li><a href="#matching-is-limited">Matching is limited</a></li>
+      <li><a href="#guided-assistant">The guided assistant</a></li>
+      <li><a href="#educational-content">Educational content and the self-audit</a></li>
+      <li><a href="#nothing-is-confidential">Nothing you send is confidential or privileged</a></li>
+      <li><a href="#for-attorneys">For attorneys</a></li>
+      <li><a href="#third-party-links">Third-party links, videos and services</a></li>
+      <li><a href="#no-warranties">No warranties and no guarantees</a></li>
+      <li><a href="#questions">Questions</a></li>
+    </ol>
+  </nav>
+
+  <div class="body">
+  <section id="not-a-law-firm">
+    <h2>1. Not a law firm, not legal advice</h2>
+    <p>AgenticAttorney.com is operated by <span class="placeholder">[LEGAL ENTITY NAME]</span>. We are not a law firm, we do not practice law, and we do not give legal advice. Nothing on this site, in the guided assistant, in an explainer, in the self-audit, or in an email from us is legal advice. It is general information about the legal questions that come up when a business runs on AI agents.</p>
+    <p>Law differs from state to state and changes over time. General information cannot account for your facts, your contracts, or your jurisdiction. Before you act on anything you read here, talk to an attorney who is licensed where you operate and who knows your situation.</p>
+  </section>
+  <section id="no-attorney-client-relationship">
+    <h2>2. No attorney-client relationship</h2>
+    <p>Using this site does not create an attorney-client relationship with us. We are not your lawyer and cannot be.</p>
+    <p>An attorney-client relationship with an attorney you meet through AgenticAttorney.com begins only when you and that attorney sign an engagement letter. Sending a match request, exchanging emails, or having an intro call does not create one. Until an engagement letter is signed, you should assume that the attorney does not represent you and has no duty to protect what you tell them.</p>
+  </section>
+  <section id="introductions-not-recommendations">
+    <h2>3. Introductions, not recommendations</h2>
+    <p>When a business sends a match request, we may introduce it to an attorney licensed in its state. We review attorneys before they receive introductions, but that review is limited and is not a certification of skill, experience, availability or results. Every attorney on AgenticAttorney.com is independent. None is our employee, partner, agent or affiliate.</p>
+    <p>An introduction is not an endorsement, a recommendation, or a guarantee. Whether to engage an attorney is your decision, and we encourage you to check any attorney's license and disciplinary history yourself with the state bar before you do. We charge attorneys nothing for introductions, take no share of any legal fee, and are not a party to any engagement between you and an attorney. Fees, scope and anything confidential are between the two of you.</p>
+    <p>We are not responsible for the advice, conduct, availability, fees or work of any attorney, and we make no promise about the outcome of any matter.</p>
+  </section>
+  <section id="matching-is-limited">
+    <h2>4. Matching is limited</h2>
+    <p>Matching currently covers businesses in New York, California, Texas and Nevada. More states will be added only as attorneys licensed there join. We do not promise that a suitable attorney exists for your request, that anyone will reply, or that a reply will arrive by any particular time. We may decline a request for any reason, and when we do, we will say so plainly.</p>
+    <p>If you are outside those four states, or your matter is outside business law for companies that run on AI agents, your state bar's lawyer referral service is a good place to start.</p>
+  </section>
+  <section id="guided-assistant">
+    <h2>5. The guided assistant</h2>
+    <p>The chat on this site is a scripted, guided flow that runs in your browser. It is not a person, not a lawyer, and not currently a live AI model. It offers fixed paths and fixed answers, and it cannot read, assess or advise on your situation. Its answers are general information, not advice.</p>
+    <p>If we add a live AI assistant later, the same limits will apply. Its answers will be general information, may be wrong or out of date, and will never be legal advice or a substitute for an attorney.</p>
+  </section>
+  <section id="educational-content">
+    <h2>6. Educational content and the self-audit</h2>
+    <p>Explainers, topic pages, videos and the free legal self-audit are educational. They describe common issues in general terms and are not tailored to you. Content may be incomplete or out of date by the time you read it, and we are under no obligation to update it.</p>
+    <p>The self-audit scores your own answers to five general questions. A score, and labels such as "looks like a fit" or "foundations first", are prompts for a conversation with an attorney. They are not legal conclusions, compliance findings, or an assessment of your business, your contracts or your risk. Do not rely on them in place of advice.</p>
+  </section>
+  <section id="nothing-is-confidential">
+    <h2>7. Nothing you send is confidential or privileged</h2>
+    <p>What you type in the chat and in the self-audit stays in your browser tab and is not sent to us. A match request or an attorney application leaves your device only when you send it yourself, by email, from your own email program. Email to us is not privileged and is not confidential. Please keep names, figures, contract terms, and anything else sensitive out of it. Those details are for the attorney you engage, after an engagement letter is signed. See our <a href="privacy.html">Privacy Policy</a> for what we do with what you send.</p>
+  </section>
+  <section id="for-attorneys">
+    <h2>8. For attorneys</h2>
+    <p>For attorneys, AgenticAttorney.com is a software product. It is a tool, and it does not practice law or make professional decisions. You remain solely responsible for your compliance with the rules of professional conduct, advertising and solicitation rules, conflict checks, confidentiality, fee arrangements, engagement terms, and disclaimers in every jurisdiction where you practice or market your services. Nothing in the software, its templates or its default wording is a legal or ethics opinion, and we do not guarantee that any feature satisfies any rule of any jurisdiction. Review every output before you rely on it.</p>
+    <p>Founding attorneys may contribute AI credits or usage toward building the platform in exchange for early access to the software. Those contributions are separate from introductions. They do not buy introductions, priority, or any particular volume of match requests, and we charge attorneys nothing for introductions. The details will be set out in separate founding-attorney terms.</p>
+    <p>Features described as "coming soon" or "preview" are plans. They may change, be delayed, or never ship.</p>
+  </section>
+  <section id="third-party-links">
+    <h2>9. Third-party links, videos and services</h2>
+    <p>This site links to state bars, lawyer referral services run by state bars, and other third-party sites, and it relies on third-party services such as our hosting provider and a font service. Explainer videos may be hosted by a third party. We do not control those sites or services, we do not endorse them, and we are not responsible for their content, accuracy, availability or privacy practices. Their own terms and policies apply when you use them.</p>
+  </section>
+  <section id="no-warranties">
+    <h2>10. No warranties and no guarantees</h2>
+    <p>The site and its content are provided as they are and as available. We may change, suspend or remove any part of the site at any time without notice, and the site may be unavailable from time to time. Statements about what the platform will do in the future are plans, not promises.</p>
+    <p class="caps">To the fullest extent permitted by law, we disclaim all warranties, express or implied, including any warranty of accuracy, completeness, merchantability, fitness for a particular purpose, and non-infringement.</p>
+    <p>Our <a href="terms.html">Terms of Use</a> contain the full warranty disclaimer and limitation of liability, and they govern your use of the site.</p>
+  </section>
+  <section id="questions">
+    <h2>11. Questions</h2>
+    <p>General questions about these disclaimers can go to <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a>. Please do not include anything confidential. These disclaimers are effective as of the date shown at the top of this page and may be updated at any time.</p>
+  </section>
+  </div>
+
+  <footer class="foot">
+    <ul class="foot-links">
+      <li><a href="./">Home</a></li>
+      <li><a href="terms.html">Terms of Use</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="disclaimers.html" aria-current="page">Disclaimers</a></li>
+      <li><a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a></li>
+    </ul>
+    <p class="fineprint"><b>AgenticAttorney.com</b> is not a law firm and does not give legal advice. Matching currently covers New York, California, Texas and Nevada. No attorney-client relationship exists until you sign an engagement letter with an attorney.</p>
+  </footer>
+</main>
+
+<script src="/assets/disclaimers-2.js"></script>
 </body>
 </html>

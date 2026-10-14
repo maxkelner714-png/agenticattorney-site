@@ -73,19 +73,19 @@
   const AUD = {
     biz: {
       eyebrow: 'Attorneys for businesses that run on AI agents',
-      greeting: 'What does your business need?',
+      greeting: 'What does your business need today?',
       note: "This chat isn't privileged, so please leave out names, contract text and figures. Those are for the attorney you engage.",
       legal: 'AgenticAttorney.com is not a law firm and does not give legal advice. Matching currently covers New York, California, Texas and Nevada. Educational content only. No attorney-client relationship exists until you sign an engagement letter with an attorney.',
       dock: 'Not a law firm and not legal advice. No attorney-client relationship until you sign an engagement letter with an attorney.',
       fine: '<b>AgenticAttorney.com</b><br>Not a law firm. Matching currently covers NY, CA, TX and NV. No attorney-client relationship exists until you sign an engagement letter with an attorney.',
-      placeholder: 'Ask about matching or agent risk',
+      placeholder: 'Ask about finding an attorney or agent risk',
       hint: 'Not privileged. Please keep confidential details out.',
       cta: { label: 'Find an attorney', flow: 'match' },
       starters: [
-        { flow: 'match', icon: 'search', title: 'Find an attorney', sub: 'Free. Now matching in NY, CA, TX and NV' },
-        { flow: 'audit', icon: 'audit', title: 'Free legal self-audit', sub: 'Five questions on your agentic foundations' },
-        { flow: 'how', icon: 'route', title: 'How it works', sub: 'From first question to engaged attorney' },
-        { flow: 'learn', icon: 'book', title: 'Learn the risks', sub: 'Short explainers on agents and the law' },
+        { flow: 'match', icon: 'search', title: 'Find an attorney', sub: 'Free. Five questions, then a match by email' },
+        { flow: 'audit', icon: 'audit', title: 'Free legal self-audit', sub: 'Five questions, a score and next steps' },
+        { flow: 'how', icon: 'route', title: 'How it works', sub: 'From your first question to an engaged attorney' },
+        { flow: 'learn', icon: 'book', title: 'Learn the risks', sub: 'Plain-English explainers on agents and the law' },
       ],
       nav: [{ flow: 'match', label: 'Find an attorney' }, { flow: 'audit', label: 'Free legal self-audit' }, { flow: 'how', label: 'How it works' }],
       learn: true,
@@ -169,8 +169,22 @@
 
   const resetPlaceholder = () => { input.placeholder = AUD[audience].placeholder; };
 
+  const startOver = document.createElement('button');
+  startOver.type = 'button';
+  startOver.id = 'startOver';
+  startOver.className = 'start-over';
+  startOver.textContent = 'Start over';
+  startOver.setAttribute('style', 'font: inherit; font-size: 13px; background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 6px 8px; border-radius: 8px;');
+  startOver.hidden = true;
+  $('#topCta').before(startOver);
+  startOver.addEventListener('click', () => {
+    goHome();
+    if (!coarse) input.focus();
+  });
+
   function enterChat(kind) {
     main.classList.add('is-chat');
+    startOver.hidden = false;
     placeComposer();
     $('#topTitle').textContent = FLOW_TITLES[kind] || 'Conversation';
     document.querySelectorAll('.nav-item[data-flow]').forEach((b) => b.setAttribute('aria-current', String(b.dataset.flow === kind)));
@@ -183,6 +197,7 @@
     thread.innerHTML = '';
     choices.innerHTML = '';
     main.classList.remove('is-chat');
+    startOver.hidden = true;
     placeComposer();
     resetPlaceholder();
     $('#topTitle').textContent = 'AgenticAttorney.com';
@@ -206,7 +221,7 @@
       const typing = document.createElement('div');
       typing.className = 'msg bot typing-row';
       typing.setAttribute('aria-hidden', 'true');
-      typing.innerHTML = '<span class="mark">§</span><div class="typing"><i></i><i></i><i></i></div>';
+      typing.innerHTML = '<span class="mark"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="var(--accent)" d="M29 5A27 27 0 0 0 29 59Z"/><path fill="var(--fg)" d="M35 5H57a5 5 0 0 1 5 5v44a5 5 0 0 1-5 5H35Z"/></svg></span><div class="typing"><i></i><i></i><i></i></div>';
       thread.append(typing);
       reveal(typing);
       await wait(350 + Math.min(html.replace(/<[^>]+>/g, '').length * 2, 500));
@@ -215,7 +230,7 @@
       const el = document.createElement('div');
       el.className = 'msg bot';
       el.id = 'm' + (++qid);
-      el.innerHTML = '<span class="mark" aria-hidden="true">§</span><div class="body"><span class="sr-only">AgenticAttorney.com: </span>' + html + '</div>';
+      el.innerHTML = '<span class="mark" aria-hidden="true"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="var(--accent)" d="M29 5A27 27 0 0 0 29 59Z"/><path fill="var(--fg)" d="M35 5H57a5 5 0 0 1 5 5v44a5 5 0 0 1-5 5H35Z"/></svg></span><div class="body"><span class="sr-only">AgenticAttorney.com: </span>' + html + '</div>';
       thread.append(el);
       reveal(el);
       return el;
@@ -382,9 +397,11 @@
       if (TO_ATT.test(lower)) return { kind: 'switch', to: 'att' };
       if (/\b(audit|self.?check|foundation)/.test(lower)) return { kind: 'audit' };
       if (/\b(law firm|legal advice|are you (a |an )?(lawyer|attorney))/.test(lower)) return { kind: 'how', sub: 'firm' };
-      if (/\b(price|pricing|cost|costs|fees?|how much|charge|is (it|this|matching) free)\b/.test(lower)) return { kind: 'how', sub: 'cost' };
-      if (/\b(privacy|private|privileged?|confidential|my data|stored?)\b/.test(lower)) return { kind: 'how', sub: 'privacy' };
-      if (/(how (does|do) (this|it|you) work|how it works|what is this|who are you|what do you do)/.test(lower)) return { kind: 'how' };
+      if (/\b(what|which) states?\b|\bstates? (covered|you cover|do you cover|available)|\bdo you (cover|serve|work in|operate in|match in)\b|\bavailable in\b|\bin my state\b|\boutside (of )?(ny|new york|ca|california|tx|texas|nv|nevada)\b/.test(lower)) return { kind: 'how' };
+      if (/\b(price|pricing|cost|costs|fees?|rates?|how much|charge|expensive|afford|pay|payment|free)\b/.test(lower)) return { kind: 'how', sub: 'cost' };
+      if (/\b(privacy|private|privileged?|confidential|my data|stored?|secure|security|anonymous|gdpr)\b/.test(lower)) return { kind: 'how', sub: 'privacy' };
+      if (/(how (does|do) (this|it|you|matching) work|how it works|what is this|who are you|what do you do|what happens (next|after)|walk me through|how (do|does) (the )?(process|matching) (go|work))/.test(lower)) return { kind: 'how' };
+      if (/\b(sign ?up|join|register|get started|apply|get matched|request a match)\b/.test(lower)) return { kind: 'match' };
       for (const tp of TOPICS) if (tp.re.test(lower)) return { kind: 'topic', slug: tp.slug };
       if (/\b(attorney|lawyer|counsel|match|find|hire|represent|llc|entity|incorporat|contract|dispute|sued|lawsuit|startup|legal help|need help)/.test(lower)) return { kind: 'match' };
       if (/\b(learn|risk|explain|video|topic)/.test(lower)) return { kind: 'learn' };
@@ -393,13 +410,16 @@
     const exactA = { 'what the software does': { kind: 'product' }, "i'm an attorney": { kind: 'product' }, 'i am an attorney': { kind: 'product' }, 'is this a law firm': { kind: 'product' } }[lower];
     if (exactA) return exactA;
     if (TO_BIZ.test(lower)) return { kind: 'switch', to: 'biz' };
-    if (/\b(price|pricing|cost|costs|fee|fees|how much|plan|plans|subscription)\b/.test(lower)) return { kind: 'pricing' };
-    if (/\b(demo|sample|example|try|fit check|see it)/.test(lower)) return { kind: 'demo' };
-    if (/\b(access|sign ?up|waitlist|wait list|join|early|get started|onboard)/.test(lower)) return { kind: 'access' };
+    if (/\b(price|pricing|cost|costs|fee|fees|rates?|how much|plan|plans|subscription|charge|pay|payment|expensive|free|credits?|billing)\b/.test(lower)) return { kind: 'pricing' };
+    if (/\b(demo|sample|example|try|fit check|see it|show me|walkthrough|preview|test drive)/.test(lower)) return { kind: 'demo' };
+    if (/\b(access|sign ?up|waitlist|wait list|join|early|get started|onboard|register|apply|become a|how do i (start|get in)|email you)/.test(lower)) return { kind: 'access' };
+    if (/\b(what|which) states?\b|\bstates? (covered|you cover|do you cover)|\bdo you (cover|serve|operate in)\b/.test(lower)) return { kind: 'product', sub: 'found' };
     if (/\b(workspace|retained)/.test(lower)) return { kind: 'product', sub: 'workspace' };
     if (/\b(guardrail|confidential|ethic|disclaim|privilege|safe)/.test(lower)) return { kind: 'product', sub: 'guard' };
     if (/\b(found by|get(ting)? found|listed|listing|directory|leads|referrals?|new clients|get clients|match(es|ing|ed)?)\b/.test(lower)) return { kind: 'product', sub: 'found' };
-    if (/\b(intake|connector|plugin|mcp|agents?\b|features?|what (does|do) (it|this|the software|you) do|what is (this|it|agentic attorney)|how (does|do) (this|it) work)/.test(lower)) return { kind: 'product' };
+    if (/\b(own|owns|relationship|party to|fee split|fees?)\b/.test(lower)) return { kind: 'product', sub: 'owner' };
+    if (/\b(replace|calendly|booking tool|intake form|intake tool|crm|calendar)\b/.test(lower)) return { kind: 'product', sub: 'tools' };
+    if (/\b(intake|connector|plugin|mcp|agents?\b|features?|capabilit|what (does|do) (it|this|the software|you) do|what is (this|it|agentic ?attorney)|how (does|do) (this|it|the software|you) work|how it works|tell me about (it|the software|the product)|who are you)/.test(lower)) return { kind: 'product' };
     return null;
   }
 
@@ -424,18 +444,20 @@
   const FLOWS = {
     /* Businesses */
     async match(t) {
-      await say(t, '<p>Five quick questions so we can match you with an attorney. Keep it general: no company names, contract text or figures. Those are for the attorney you engage.</p>');
+      await say(t, '<p>Five quick questions, then a match request you send by email. Keep it general: no company names, contract text or figures. Those are for the attorney you engage.</p>');
       const N = 5;
       const STATE = COVERED.map((c) => ({ label: c, value: c, aliases: [c.toLowerCase(), { 'New York': 'ny', California: 'ca', Texas: 'tx', Nevada: 'nv' }[c]] }))
         .concat([{ label: 'Another state', value: 'other', aliases: ['another state', 'other'] }, { label: 'Outside the US', value: 'abroad', aliases: ['outside the us'] }]);
       let state = await pick(t, 0, N, 'Which state is your business formed in, or where does it mainly operate?', STATE,
         { freeText: true, placeholder: 'Type a state, like Nevada' });
       if (!COVERED.includes(state)) {
-        await say(t, '<h2>Not in your state yet.</h2><p>Right now, matching is available for businesses in New York, California, Texas and Nevada. More states are coming as attorneys join. For help now, your state bar\'s lawyer referral service is a good place to start.</p>'
-          + '<p>If you would like to hear when we cover your state, email us.</p>'
-          + mailLink('Tell me when you cover my state', '', 'Email ' + EMAIL));
+        await say(t, '<h2>Not in your state yet.</h2><p>Right now, matching covers businesses in New York, California, Texas and Nevada. More states are coming as attorneys join.</p>'
+          + '<p>Three things still help today. The free self-audit shows you where your foundations stand. The explainers cover the questions that come up most. And your state bar\'s lawyer referral service can point you to a local attorney now.</p>'
+          + '<p>If you would like to hear when we cover your state, send us a one-line email.</p>'
+          + mailLink('Tell me when you cover my state', 'Please let me know when AgenticAttorney.com covers my state.\n\nState: ' + (state === 'abroad' ? 'Outside the US' : state === 'other' ? 'Another state' : state), 'Email ' + EMAIL));
         return nextSteps(t, ['match']);
       }
+      await say(t, '<p>' + esc(state) + ' is covered. The attorney you are matched with will be licensed there.</p>');
 
       const NEEDS = [
         { label: 'Contracts and deals', value: 'contracts', aliases: ['contract', 'contracts'] },
@@ -444,7 +466,7 @@
         { label: 'Rules for what our agents can do', value: 'agents', aliases: ['agents', 'agent', 'rules'] },
         { label: 'Something else', value: 'other', aliases: ['other', 'something else'] },
       ];
-      const need = await pick(t, 1, N, 'What do you need help with?', NEEDS);
+      const need = await pick(t, 1, N, 'What do you need help with first?', NEEDS);
       let needLabel = labelOf(NEEDS, need);
       if (need === 'other') {
         const KIND = [{ label: 'A business matter', value: 'business', aliases: ['business'] }, { label: 'A personal matter', value: 'personal', aliases: ['personal'] }];
@@ -461,7 +483,7 @@
         { label: 'One project', value: 'project', aliases: ['project', 'one project', 'one'] },
         { label: 'Not sure yet', value: 'unsure', aliases: ['not sure', 'unsure'] },
       ];
-      const mode = await pick(t, 2, N, 'How would you like to work with an attorney?', MODE);
+      const mode = await pick(t, 2, N, 'How would you like to work with the attorney?', MODE);
       const AGENTS = [
         { label: 'Agents do real work for us', value: 'core', aliases: ['yes', 'a lot'] },
         { label: "We're starting to use them", value: 'some', aliases: ['some', 'starting'] },
@@ -473,22 +495,22 @@
         { label: 'This month', value: 'month', aliases: ['month'] },
         { label: 'Just exploring', value: 'exploring', aliases: ['exploring', 'no rush'] },
       ];
-      const when = await pick(t, 4, N, 'How soon would you like to talk to someone?', WHEN);
+      const when = await pick(t, 4, N, 'How soon would you like to talk to an attorney?', WHEN);
 
       const rows = [['Where', state], ['Help with', needLabel], ['Working style', labelOf(MODE, mode)], ['AI agents', labelOf(AGENTS, agents)], ['Timing', labelOf(WHEN, when)]];
       const body = 'Match request from AgenticAttorney.com\n\n' + rows.map(([k, v]) => k + ': ' + v).join('\n')
         + '\n\nPlease keep confidential details out of this email. They are for after an engagement letter is signed.';
       await say(t, "<h2>Here's your match request.</h2>"
         + summaryCard(rows)
-        + '<p>We\'ll review your request and, if there\'s a good fit, reply by email with the contact details of an attorney licensed in your state. If there isn\'t, you\'ll hear that plainly.</p>'
-        + '<p>Send the request by email. It contains only the answers above.</p>'
+        + '<p>The email contains only the answers above. Nothing is sent until you send it.</p>'
         + mailLink('Match request', body, 'Request a match')
-        + '<p class="why">Nothing is sent until you send the email. Please don\'t add confidential details.</p>');
+        + '<h3>What happens next</h3><ol><li>We read your request and look for an attorney licensed in your state who works with agentic businesses.</li><li>If there is a good fit, you get a reply by email, usually within a few business days, with the attorney\'s name, contact details and how to set up a short intro call. If there is not a fit, you hear that plainly.</li><li>You talk to the attorney directly. Fees, scope and anything confidential stay between the two of you, and nothing is confidential until an engagement letter is signed.</li></ol>'
+        + '<p class="why">Please don\'t add confidential details to the email.</p>');
       return nextSteps(t, ['match']);
     },
 
     async audit(t) {
-      await say(t, '<p>A five-minute check of the legal foundations of a business that runs on agents. Score yourself honestly. No answers leave this tab.</p>');
+      await say(t, '<p>A five-minute check of the legal foundations of a business that runs on agents. Answer honestly. Your answers stay in this tab, and you get a score with one next step per gap.</p>');
       const gaps = [];
       for (let i = 0; i < AUDIT.length; i++) {
         const q = AUDIT[i];
@@ -502,7 +524,15 @@
         : n > 0
           ? '<h2>A few gaps to close.</h2><p>Each one is a contained project, and a good first thing to hand an attorney.</p>'
           : '<h2>Your foundations look solid.</h2><p>Run this again as your agents take on more.</p>';
-      await say(t, verdict + scoreCard(AUDIT.length - n, AUDIT.length, n >= 3 ? 'gaps' : 'fit', n === 0 ? 'Solid' : n >= 3 ? 'Start here' : 'Close the gaps', gaps)
+      const NEXT = {
+        'Company records': 'Gather your operating agreement, minutes and cap table into one folder, and note which of the three is missing or out of date.',
+        'Limits on what your agents can commit to': 'Write down, in one page, the largest amount and the kinds of commitments an agent may make without a human signing off.',
+        'A named human who can stop operations': 'Name one person who can stop every agent, confirm they have the access to do it, and write that down where your team can find it.',
+        'Liability and indemnity terms': 'List the vendors and customers your agents deal with, and pull the liability and indemnity clauses from each contract for an attorney to read.',
+        'Insurance': 'Ask your broker in writing whether your current policies cover work done by your agents, and keep the answer.',
+      };
+      const todo = gaps.map((q) => ({ label: q.label, why: 'Next step: ' + (NEXT[q.label] || q.why) }));
+      await say(t, verdict + scoreCard(AUDIT.length - n, AUDIT.length, n >= 3 ? 'gaps' : 'fit', n === 0 ? 'Solid' : n >= 3 ? 'Start here' : 'Close the gaps', todo)
         + '<p class="why">Educational content only. Not legal advice.</p>');
       return nextSteps(t, ['audit']);
     },
@@ -518,8 +548,12 @@
         { label: 'What does it cost?', value: 'cost' },
         { label: 'Why these attorneys?', value: 'why' },
         { label: 'Is my information private?', value: 'privacy' },
+        { label: 'How fast will I hear back?', value: 'speed' },
+        { label: "What if I'm not in a covered state?", value: 'states' },
       ];
       const answers = {
+        speed: "<p>Match requests are read by a person, not an agent. If there is a good fit, you usually hear back by email within a few business days with the attorney's contact details. If there is no fit, you hear that plainly instead of waiting.</p>",
+        states: "<p>Matching currently covers New York, California, Texas and Nevada, with more states as attorneys join. If you are elsewhere, the free self-audit and the explainers still apply, your state bar's lawyer referral service can point you to a local attorney now, and you can email us to hear when your state is covered.</p>",
         firm: "<p>No. AgenticAttorney.com is not a law firm and doesn't give legal advice. The attorney you're matched with is independent, and a match isn't an endorsement. An attorney-client relationship starts only when you sign an engagement letter with one of them.</p>",
         cost: "<p>Finding an attorney on AgenticAttorney.com is free for businesses. Each attorney sets their own fees and explains them before you engage.</p>",
         why: '<p>Every attorney is reviewed before receiving matches.</p><ul><li><b>Tech-native.</b> They work with APIs, MCP servers, plugins and agent harnesses.</li><li><b>Careful with your data.</b> They plug into your systems to do the work, instead of asking you to upload your secrets to a bot.</li><li><b>Focused.</b> Contracts, company structure, disputes, and the legal risk of running on agents.</li></ul>',
@@ -536,7 +570,15 @@
 
     async topic(t, opts) {
       const tp = TOPICS.find((x) => x.slug === opts.slug);
-      await say(t, '<h2>' + esc(tp.title) + '</h2><p>' + esc(tp.blurb) + '</p><p>The full explainer is a short video, ' + ph('video link') + '.</p><p class="why">Educational content only. Not legal advice.</p>');
+      const EXPLAIN = {
+        'agent-authority': 'When an agent places an order or accepts terms on your behalf, the other side will usually argue that it had your authority to do so. Courts have long held people to deals made by assistants and systems they chose to use, and an AI agent is unlikely to be treated differently. That means the real question is not whether an agent can bind you but how far you want that authority to reach. Written limits, spending caps and a human sign-off above a threshold make the answer clear to your team and to the people you deal with.',
+        'dead-owner-live-business': 'A business that runs on agents can keep taking orders, paying vendors and signing up customers after the person behind it is gone. Someone still owns the company, still owes its debts and still answers for what it does, and an estate may not even know the agents are running. Deciding now who takes over, who can stop operations and where the credentials live keeps the business from running without an owner. Attorneys treat this as succession planning, and it is a short conversation when it happens early.',
+        'agent-output-liability': 'If an agent gives a customer a wrong answer, ships the wrong product or misses a deadline, the loss usually lands on the business that deployed it, not the company that built the model. Your contracts with vendors often limit what you can recover from them, and your contracts with customers decide what they can recover from you. Reading those two sets of clauses together shows where the exposure sits. Insurance and a clear review step for high-stakes outputs are the usual ways to shrink it.',
+        'corporate-formalities-for-agents': 'An LLC or corporation protects its owners from the company\'s debts only while it behaves like a separate business, with its own records, accounts and decisions. When agents do most of the work, it is easy to stop keeping minutes, mix personal and company money, or let a bot act outside what the operating agreement allows. A creditor who can show the company was a formality may ask a court to reach the owners directly. Keeping records current and tying agent actions to real company decisions keeps the protection in place.',
+        'kill-switch-governance': 'Every agentic business needs one named person who has both the legal authority and the technical access to stop every agent. Often those two things sit with different people, or the access lives in an account nobody else can reach. Writing down who decides, who can act and how to reach them turns a scramble into a procedure. It also tells investors, insurers and customers that someone is in charge.',
+        'mcp-data-exposure': 'Connectors and tool integrations give agents access to data, and everything an agent touches can be requested in a lawsuit or regulatory inquiry. Logs, prompts and retrieved documents are records of the business like any other. Giving agents only the data they need, keeping access logs and setting retention periods reduces what has to be produced and what can be used against you. Data minimization is a legal strategy, not just a security one.',
+      };
+      await say(t, '<h2>' + esc(tp.title) + '</h2><p>' + esc(tp.blurb) + '</p><p>' + esc(EXPLAIN[tp.slug] || '') + '</p><p>A short video explainer is coming soon.</p><p class="why">Educational content only. Not legal advice.</p>');
       return nextSteps(t, []);
     },
 
@@ -548,7 +590,7 @@
     /* Attorneys */
     async product(t, opts) {
       const intro = '<h2>A front door for your practice that AI agents can use.</h2>'
-        + "<p>AgenticAttorney.com turns your intake into a connector that AI agents can call. A prospective client's agent can learn what you do, run your fit check, take your self-audit and book an intro call. Every response asks the agent to use hypotheticals, so prospects are steered away from sending confidential details before you're engaged.</p>"
+        + "<p>AgenticAttorney.com turns your public intake into a connector that a prospective client's AI agent can call. The agent reads your practice overview, runs the fit check you wrote, offers the prospect a free self-audit and books your intro call, all without you on the phone. Every response carries your disclaimers and tells the agent to use hypotheticals, so prospects are steered away from sending confidential facts before you are engaged. You keep the client relationship, your engagement terms and your own rules.</p>"
         + '<p>What would you like to see?</p>';
       const subs = [
         { label: 'The overview', value: 'intro' },
@@ -556,25 +598,29 @@
         { label: 'Client workspace', value: 'workspace' },
         { label: 'Built-in guardrails', value: 'guard' },
         { label: 'Getting found by businesses', value: 'found' },
+        { label: 'Who owns the client relationship?', value: 'owner' },
+        { label: 'Does this replace my intake tools?', value: 'tools' },
       ];
       const answers = {
-        intake: "<ul><li><b>Practice overview.</b> What you handle, what you don't, and where you're licensed.</li><li><b>Fit check.</b> Your yes-or-no questions, with gate questions that turn away matters you don't take and a pass mark you set.</li><li><b>Self-audit.</b> A free educational check you can offer prospects.</li><li><b>Onboarding videos and booking.</b> Prospects watch your short videos, then book your intro call.</li></ul>",
-        workspace: "<p>For retained clients, the software sets up a workspace inside the client's own environment. You plug into their systems, do the work and leave the work product there, so the client never has to upload their files to you.</p>",
-        guard: '<ul><li>Every response asks the calling agent not to send confidential or identifying facts, and to use hypotheticals instead.</li><li>Every response carries your own disclaimers, such as when an attorney-client relationship begins under your engagement terms.</li><li>Your engagement terms live in one place, so every agent gets the same answer.</li></ul>',
-        found: "<p>Businesses can already request a match. Matching currently covers New York, California, Texas and Nevada, and will extend by practice area and state as attorneys join, subject to the advertising rules where you're licensed. Contributions to building the platform pay for software access, not for matches.</p>",
+        intake: "<p>The connector exposes only what you publish, as a small set of tools a prospect's agent can call. The agent sees your public profile and your questions, never your files or your other clients.</p><ul><li><b>Practice overview.</b> What you handle, what you don't, where you're licensed and your engagement terms in plain words.</li><li><b>Fit check.</b> Your yes-or-no questions, with gate questions that turn away matters you don't take and a pass mark you set. The agent gets a score and your reasons, not a legal opinion.</li><li><b>Self-audit.</b> A free educational check you can offer prospects, marked as education and not advice.</li><li><b>Onboarding and booking.</b> Prospects see your onboarding material and your booking link. Nothing is booked without the prospect's say-so.</li></ul>",
+        workspace: "<p>The client workspace is for clients you have already engaged. The software sets up a workspace inside the client's own environment, with their agents and systems. You work there and leave the work product there, so the client never uploads their files to you.</p><p>What it is not: it is not a document management system, a billing tool or a place where AgenticAttorney.com holds client files. The client keeps their data in their environment. You keep your own notes, drafts and records under your own retention rules.</p>",
+        guard: '<p>You set the guardrails once, in your settings, and every response the connector sends carries them.</p><ul><li>Every response tells the calling agent not to send confidential or identifying facts, and to use hypotheticals instead.</li><li>Every response carries your own disclaimers in your own words, such as when an attorney-client relationship begins under your engagement terms and that nothing on the connector is legal advice.</li><li>Your engagement terms live in one place, so every agent gets the same answer, and you can change them at any time.</li><li>You decide which questions are gates, what the referral says and where the pass mark sits.</li></ul>',
+        found: "<p>Businesses can already request a match through the Businesses tab. Matching currently covers New York, California, Texas and Nevada, and will extend by practice area and state as attorneys join, subject to the advertising rules where you're licensed. A matched business learns your contact details only in the email reply, and you decide whether to take the call. Contributions to building the platform pay for software access, not for matches.</p>",
+        owner: "<p>You do. AgenticAttorney.com is not a party to the engagement, does not practice law and does not share in fees. A prospect's agent talks to your connector, and from the intro call onward the relationship, the engagement letter, the scope and the fees are between you and your client. The platform sees no client files and no privileged material.</p>",
+        tools: "<p>Not necessarily. The connector is an agent-facing front door. It sits in front of whatever you already use, and your booking link stays your booking link. If your intake form or calendar works for people, it keeps working for people. What the connector adds is a way for a prospect's agent to do the first pass on their behalf, with your questions and your disclaimers, before anyone books time. You can also run it on its own if you have no intake tools yet.</p>",
       };
       return faq(t, opts, intro, subs, answers, { label: 'Join as an attorney', value: 'access', primary: true }, 'product');
     },
 
     async demo(t) {
-      await say(t, "<p>Here is a sample fit check for a made-up firm, the way a prospective client's AI agent would walk through it. Answer as the prospect would. In the software, you write your own questions, gates and pass mark.</p>");
+      await say(t, "<p>Here is a sample fit check for a made-up firm, the way a prospective client's AI agent would walk through it. The questions, the gate and the pass mark below are the sample firm's, not yours. Answer as the prospect would. In the software, you write your own questions, choose your own gates and set your own pass mark.</p>");
       const answers = {};
       for (let i = 0; i < DEMO.length; i++) {
         const q = DEMO[i];
         const a = await question(t, i, DEMO.length, q, q.opts || YES_NO);
         answers[q.id] = a;
         if (q.gate && a === 'no') {
-          await say(t, "<h2>Outside the sample firm's practice.</h2><p>The prospect gets a referral suggestion instead of a booking link, so nobody's time is wasted. In the software, you choose which questions are gates and what the referral says.</p>");
+          await say(t, "<h2>Outside the sample firm's practice.</h2><p>This is a gate question for the sample firm. The prospect gets a referral suggestion instead of a booking link, so nobody's time is wasted. In the software, you choose which questions are gates, what the referral says, and whether a gate ends the check or just notes a concern.</p>");
           return nextSteps(t, ['demo']);
         }
       }
@@ -582,20 +628,21 @@
       const have = DEMO.length - gaps.length;
       const pass = have / DEMO.length >= 0.6;
       const text = pass
-        ? '<h2>The prospect looks like a fit.</h2><p>Next they see your onboarding videos and your booking link.</p>'
-        : "<h2>Foundations first.</h2><p>This isn't a rejection. The prospect learns there is groundwork to do and can still book a call.</p>";
+        ? '<h2>The prospect looks like a fit for the sample firm.</h2><p>Next the prospect sees the sample firm\'s onboarding material and booking link. In the software, you decide what a passing prospect sees next.</p>'
+        : "<h2>Foundations first.</h2><p>This isn't a rejection. The prospect learns there is groundwork to do and can still book a call with the sample firm. In the software, you decide where the pass mark sits and what a prospect below it is told.</p>";
       await say(t, text + scoreCard(have, DEMO.length, pass ? 'fit' : 'gaps', pass ? 'Looks like a fit' : 'Foundations first', gaps)
-        + "<p class=\"why\">This is what the prospect's agent reports back. In this demo, answers stay in this browser tab.</p>");
+        + "<p class=\"why\">This is what the prospect's agent reports back to the prospect. Sample only, for an unnamed made-up firm. In this demo, answers stay in this browser tab.</p>");
       return nextSteps(t, ['demo']);
     },
 
     async pricing(t) {
       await say(t, '<h2>Founding attorneys help build it.</h2>'
-        + "<p>While AgenticAttorney.com is being built, there's no cash price for attorneys. Founding attorneys contribute AI credits or usage toward building the platform, and get early access to the software in return.</p>"
+        + "<p>While AgenticAttorney.com is being built, there is no cash price for attorneys. Founding attorneys contribute AI credits or usage toward building the platform, and get early access to the software in return. Paid plans come later, once the platform is live.</p>"
         + '<div class="plans">'
-        + '<div class="plan"><b>Founding attorney</b><div class="price">Credits or usage</div><p>Contribute AI credits or usage while the platform is built. Early access to agent-ready intake, guardrails and client workspaces.</p></div>'
-        + '<div class="plan"><b>Paid plans</b><div class="price">Later</div><p>Set once the platform is live. Founding attorneys hear about them first.</p></div>'
+        + '<div class="plan"><b>Founding attorney</b><div class="price">Credits or usage</div><p>Contribute AI credits or usage while the platform is built. Early access to agent-ready intake, guardrails and client workspaces, and a say in what gets built.</p></div>'
+        + '<div class="plan"><b>Paid plans</b><div class="price">Later</div><p>Set once the platform is live. Founding attorneys hear about them first, and nothing changes for them without notice.</p></div>'
         + '</div>'
+        + '<p>Three things to be clear about. Contributions pay for software access and never for matches or referrals. Nothing is charged on this site, and there is no card to enter. Your fees, scope and engagement terms stay between you and your clients.</p>'
         + '<p class="why">Preview only. How contributions work will be set out in the founding-attorney terms.</p>');
       return nextSteps(t, ['pricing']);
     },
@@ -603,8 +650,8 @@
     async access(t) {
       const body = 'Name:\nStates where you are licensed (and bar numbers):\nPractice areas:\nFirm name and size:\nWebsite and public profiles:\nWhy agentic businesses:\nCould you contribute AI credits or usage while the platform is built?\n';
       await say(t, '<h2>Join as a founding attorney.</h2>'
-        + '<p>Email ' + esc(EMAIL) + ' with publicly available information about you and your practice. If it looks like a fit, we\'ll reach out to set up a video call.</p>'
-        + '<p>Helpful to include:</p><ul><li>Your name and the states where you\'re licensed</li><li>Your practice areas, and your firm\'s name and size</li><li>Links to your website and public profiles</li><li>Whether you could contribute AI credits or usage while the platform is built</li></ul>'
+        + '<p>Email ' + esc(EMAIL) + ' with publicly available information about you and your practice. If it looks like a fit, we\'ll reply to set up a short video call. The button below opens a draft with the headings filled in.</p>'
+        + '<p>What to send:</p><ul><li>Your name</li><li>The states where you\'re licensed, with bar numbers</li><li>Your practice areas</li><li>Your firm\'s name and size</li><li>Your website and public profiles</li><li>Why you want to serve agentic businesses</li><li>Whether you could contribute AI credits or usage while the platform is built</li></ul>'
         + mailLink('Joining AgenticAttorney.com', body, 'Email ' + EMAIL)
         + '<p class="why">Public information only. Please don\'t include anything about your clients.</p>');
       return nextSteps(t, ['access']);
@@ -787,10 +834,14 @@
       composer.requestSubmit();
     }
   });
+  let lastSent = { text: '', at: 0 };
   composer.addEventListener('submit', (e) => {
     e.preventDefault();
     const text = input.value.trim();
     if (!text) return;
+    const now = performance.now();
+    if (text === lastSent.text && now - lastSent.at < 700) { input.value = ''; autosize(); return; } /* a double send of the same line */
+    lastSent = { text, at: now };
     input.value = '';
     autosize();
     handleTyped(text);
@@ -805,6 +856,7 @@
     if (theme === 'system') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', theme);
     $('#themeLabel').textContent = theme[0].toUpperCase() + theme.slice(1);
+    $('#themeToggle').setAttribute('aria-label', 'Theme: ' + $('#themeLabel').textContent + '. Change theme');
   }
   $('#themeToggle').addEventListener('click', () => {
     theme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
@@ -814,6 +866,7 @@
   applyTheme();
 
   audience = audFromHash() || 'biz';
+  if (!audFromHash()) { try { history.replaceState(null, '', audience === 'att' ? '#attorneys' : '#businesses'); } catch (e) {} }
   renderAudience();
   placeComposer();
 })();

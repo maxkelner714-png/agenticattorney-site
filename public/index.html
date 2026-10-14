@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://agenticattorney.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgenticAttorney.com">
+<meta property="og:image:alt" content="AgenticAttorney.com: attorneys for businesses that run on AI agents">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AgenticAttorney.com: attorneys for businesses that run on AI agents">
 <meta name="twitter:description" content="AgenticAttorney.com is a free attorney-matching service for businesses that run on AI agents, covering New York, California, Texas and Nevada, and software for the attorneys who serve them. It is not a law firm.">
@@ -23,6 +23,9 @@
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F3EC">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#262624">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
@@ -37,10 +40,11 @@
 <p>AgenticAttorney.com is not a law firm and does not give legal advice.</p>
 </div>
 </noscript>
+<a class="skip-link" href="#input">Skip to the chat</a>
 <div class="app" id="app">
   <nav class="sidebar" id="sidebar" aria-label="Site">
     <div class="brand">
-      <span class="mark" aria-hidden="true">§</span>
+      <span class="mark" aria-hidden="true"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="var(--accent)" d="M29 5A27 27 0 0 0 29 59Z"/><path fill="var(--fg)" d="M35 5H57a5 5 0 0 1 5 5v44a5 5 0 0 1-5 5H35Z"/></svg></span>
       <span class="brand-name">AgenticAttorney.com</span>
       <button class="drawer-close" id="drawerClose" type="button" aria-label="Close navigation">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke-linecap="round"/></svg>
@@ -78,11 +82,13 @@
         <span>Theme</span><span id="themeLabel">System</span>
       </button>
       <p class="fineprint" id="fineprint"></p>
+      <p class="site-links"><a href="/privacy">Privacy</a><span aria-hidden="true">·</span><a href="/terms">Terms</a><span aria-hidden="true">·</span><a href="/disclaimers">Disclaimers</a></p>
     </div>
   </nav>
-  <div class="scrim" id="scrim"></div>
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
 
   <main class="main" id="main">
+    <div class="ambient" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="mark">§</span></div>
     <header class="topbar">
       <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke-linecap="round"/></svg>
@@ -100,11 +106,12 @@
         </div>
         <div class="home-panel" id="homePanel" role="tabpanel" aria-labelledby="tab-biz-m">
         <p class="eyebrow" id="eyebrow"></p>
-        <h2 class="greeting" id="greeting"><span class="mark" aria-hidden="true">§</span><span id="greetText"></span></h2>
+        <h2 class="greeting" id="greeting"><span class="mark" aria-hidden="true"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="var(--accent)" d="M29 5A27 27 0 0 0 29 59Z"/><path fill="var(--fg)" d="M35 5H57a5 5 0 0 1 5 5v44a5 5 0 0 1-5 5H35Z"/></svg></span><span id="greetText"></span></h2>
         <div id="homeSlot"></div>
         <p class="home-note" id="homeNote"></p>
         <div class="starters" id="starters"></div>
         <p class="legal" id="homeLegal"></p>
+        <p class="site-links home-links"><a href="/privacy">Privacy</a><span aria-hidden="true">·</span><a href="/terms">Terms</a><span aria-hidden="true">·</span><a href="/disclaimers">Disclaimers</a></p>
         </div>
       </section>
 
@@ -119,7 +126,7 @@
       </div>
     </div>
 
-    <form class="composer" id="composer" autocomplete="off">
+    <form class="composer" id="composer" autocomplete="off" aria-label="Send a message">
       <label class="sr-only" for="input">Message</label>
       <textarea id="input" rows="1" placeholder=""></textarea>
       <div class="composer-row">

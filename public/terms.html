@@ -2,41 +2,323 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<title>Terms of Use: AgenticAttorney.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Use · AgenticAttorney.com</title>
+<link rel="stylesheet" href="/assets/fonts.css">
 <meta name="description" content="Terms of Use for AgenticAttorney.com.">
-<link rel="canonical" href="https://agenticattorney.com/terms">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="AgenticAttorney.com">
-<meta property="og:url" content="https://agenticattorney.com/terms">
-<meta property="og:title" content="Terms of Use: AgenticAttorney.com">
-<meta property="og:description" content="Terms of Use for AgenticAttorney.com.">
-<meta property="og:image" content="https://agenticattorney.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgenticAttorney.com">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Terms of Use: AgenticAttorney.com">
-<meta name="twitter:description" content="Terms of Use for AgenticAttorney.com.">
-<meta name="twitter:image" content="https://agenticattorney.com/og-image.png">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F3EC">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#262624">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
-<link rel="stylesheet" href="/assets/page.css">
-<script src="/assets/theme-init.js"></script>
+<script src="/assets/terms-1.js"></script>
+<style>
+/* Shares the home page's tokens: warm off-white, serif headings, terracotta accent. */
+:root {
+  --bg: #F6F3EC;
+  --surface: #FDFCF9;
+  --fg: #29261F;
+  --muted: #6B665C;
+  --line: #E0DACD;
+  --accent: #B5552F;
+  --accent-hover: #9E4826;
+  --on-accent: #FFFFFF;
+  --bubble: #EAE4D7;
+  --shadow: 0 1px 2px rgba(60, 45, 30, .06), 0 4px 16px rgba(60, 45, 30, .06);
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-ui: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --col: 42rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #262624; --surface: #30302D; --fg: #EEEAE1; --muted: #A9A498;
+    --line: #42413C; --accent: #D97757; --accent-hover: #E58C6E; --on-accent: #1E1E1C;
+    --bubble: #3A3935;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #262624; --surface: #30302D; --fg: #EEEAE1; --muted: #A9A498;
+  --line: #42413C; --accent: #D97757; --accent-hover: #E58C6E; --on-accent: #1E1E1C;
+  --bubble: #3A3935;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
 
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.5 var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--accent-hover); }
+
+/* Top bar */
+.topbar {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 54px;
+  border-bottom: 1px solid var(--line); background: var(--bg);
+  position: sticky; top: 0; z-index: 2;
+}
+.topbar-inner { width: 100%; max-width: var(--col); margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; min-width: 0; }
+.mark {
+  width: 28px; height: 28px; flex: none; border-radius: 8px; background: var(--accent); color: var(--on-accent);
+  display: grid; place-items: center; font: 500 19px/1 var(--font-display);
+}
+.brand-name { font: 500 18px/1.1 var(--font-display); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.theme-toggle {
+  margin-left: auto; flex: none; display: flex; align-items: center; gap: 8px; background: none;
+  border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; font-size: 13px; color: var(--muted);
+}
+
+/* Reading column */
+.page { max-width: var(--col); margin: 0 auto; padding: 40px 16px 64px; }
+.eyebrow { font-size: 13px; color: var(--muted); margin: 0 0 10px; letter-spacing: .01em; }
+h1 {
+  margin: 0 0 8px; font: 400 clamp(30px, 4.6vw, 40px)/1.15 var(--font-display); letter-spacing: -.015em; text-wrap: balance;
+}
+.meta { color: var(--muted); font-size: 13.5px; margin: 0 0 28px; }
+.meta .placeholder { font-size: inherit; }
+
+/* Plain-English summary */
+.summary {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  padding: 18px 20px 6px; margin: 0 0 32px;
+}
+.summary h2 { font: 500 12px/1 var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.summary ul { margin: 0 0 12px; padding-left: 1.2em; font: 16px/1.55 var(--font-display); }
+.summary li { margin-bottom: .45em; }
+.summary p { font: 16px/1.55 var(--font-display); margin: 0 0 12px; }
+
+/* Contents */
+.toc { margin: 0 0 36px; padding: 0; font-size: 14px; }
+.toc h2 { font: 500 12px/1 var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.toc ol { margin: 0; padding-left: 1.4em; columns: 2; column-gap: 24px; }
+.toc li { margin-bottom: 4px; break-inside: avoid; }
+.toc a { color: var(--fg); text-decoration: none; }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+/* Body copy */
+.body { font: 17px/1.6 var(--font-display); }
+.body section { margin: 0 0 30px; scroll-margin-top: 70px; }
+.body h2 { font: 500 22px/1.3 var(--font-display); margin: 0 0 .5em; letter-spacing: -.01em; }
+.body h3 { font: 500 18px/1.3 var(--font-display); margin: 1.2em 0 .4em; }
+.body p { margin: 0 0 .8em; }
+.body ul, .body ol { margin: 0 0 .8em; padding-left: 1.3em; }
+.body li { margin-bottom: .35em; }
+.body b, .body strong { font-weight: 500; }
+.body .why { font: 14px/1.5 var(--font-ui); color: var(--muted); border-left: 2px solid var(--line); padding-left: 12px; margin: 0 0 .8em; }
+.body .caps { font: 500 15px/1.55 var(--font-ui); text-transform: uppercase; letter-spacing: .01em; }
+.body table { width: 100%; border-collapse: collapse; font: 14.5px/1.45 var(--font-ui); margin: 0 0 1em; }
+.body th, .body td { text-align: left; vertical-align: top; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); }
+.body th { font-weight: 500; color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; }
+.placeholder { border-bottom: 1px dashed var(--muted); color: var(--muted); }
+address { font-style: normal; }
+
+/* Footer */
+.foot { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; margin: 0; padding: 0; list-style: none; }
+.foot-links a { color: var(--fg); text-decoration: none; }
+.foot-links a:hover { color: var(--accent); text-decoration: underline; }
+.foot-links a[aria-current="page"] { color: var(--muted); }
+.fineprint { font-size: 11.5px; line-height: 1.45; color: var(--muted); margin: 0; }
+.fineprint b { font-weight: 500; color: var(--fg); }
+
+@media (max-width: 560px) {
+  .toc ol { columns: 1; }
+  .body { font-size: 16.5px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print {
+  .topbar, .theme-toggle { display: none; }
+  body { background: #fff; color: #000; }
+  .summary { box-shadow: none; }
+}
+</style>
 </head>
 <body>
-<div class="page"><header><span class="mark" aria-hidden="true">§</span><a href="/">AgenticAttorney.com</a></header>
-<h1>Terms of Use</h1>
-<div class="notice"><p>This page is being prepared. Until it is published, questions about terms of use can go to <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a>.</p></div>
-<p class="legal">AgenticAttorney.com is not a law firm and does not give legal advice.</p>
-<p><a class="home-link" href="/">Back to the home page</a></p>
-</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="./" aria-label="AgenticAttorney.com home">
+      <span class="mark" aria-hidden="true">§</span>
+      <span class="brand-name">AgenticAttorney.com</span>
+    </a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+      <span>Theme</span><span id="themeLabel">System</span>
+    </button>
+  </div>
+</header>
 
+<main class="page">
+  <p class="eyebrow">Legal</p>
+  <h1>Terms of Use</h1>
+  <p class="meta">Effective <span class="placeholder">[EFFECTIVE DATE]</span></p>
+
+  <section class="summary" aria-labelledby="sum-h">
+    <h2 id="sum-h">In plain English</h2>
+    <ul>
+      <li>AgenticAttorney.com is run by <span class="placeholder">[LEGAL ENTITY NAME]</span>. It is not a law firm and it does not give legal advice.</li>
+      <li>Using the Site means you accept these terms, our <a href="privacy.html">Privacy Policy</a> and our <a href="disclaimers.html">Disclaimers</a>.</li>
+      <li>For businesses, introductions are free. Any attorney we introduce is independent. You decide whether to hire them, and your relationship with them starts only when you sign their engagement letter.</li>
+      <li>For attorneys, the Platform is software. You stay responsible for your own professional rules. We charge nothing for introductions and take no share of any fee.</li>
+      <li>Email is not confidential or privileged. Do not send us secrets.</li>
+      <li>The Site is provided as is. Our liability to you is capped at one hundred US dollars.</li>
+      <li>If there is a dispute, we talk first for 30 days. After that, the courts in <span class="placeholder">[VENUE]</span>. There is no arbitration clause.</li>
+    </ul>
+  </section>
+
+  <nav class="toc" aria-labelledby="toc-h">
+    <h2 id="toc-h">Contents</h2>
+    <ol>
+      <li><a href="#who-we-are">Who we are and what these terms cover</a></li>
+      <li><a href="#not-a-law-firm">The Platform is not a law firm</a></li>
+      <li><a href="#using-the-platform">Using the Platform</a></li>
+      <li><a href="#for-businesses">For businesses: how introductions work</a></li>
+      <li><a href="#for-attorneys">For attorneys: the software</a></li>
+      <li><a href="#what-you-send-us">What you send us</a></li>
+      <li><a href="#educational-content">Educational content and the guided assistant</a></li>
+      <li><a href="#our-content">Our content and your license</a></li>
+      <li><a href="#third-party">Third-party links and services</a></li>
+      <li><a href="#no-warranties">No warranties</a></li>
+      <li><a href="#limitation-of-liability">Limitation of liability</a></li>
+      <li><a href="#your-responsibility">Your responsibility to us</a></li>
+      <li><a href="#changes">Changes and ending access</a></li>
+      <li><a href="#governing-law">Governing law and disputes</a></li>
+      <li><a href="#general">General</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <div class="body">
+  <section id="who-we-are">
+    <h2>1. Who we are and what these terms cover</h2>
+    <p>AgenticAttorney.com is run by <span class="placeholder">[LEGAL ENTITY NAME]</span>, a <span class="placeholder">[ENTITY TYPE]</span> formed in <span class="placeholder">[STATE OF FORMATION]</span>. In these terms, "we", "us" and "our" mean that company. "You" means anyone who visits or uses the Platform.</p>
+    <p>"The Platform" means the website at AgenticAttorney.com (the "Site") and the software we offer to attorneys. Both go by the name AgenticAttorney.com, and these terms cover both.</p>
+    <p>By using the Platform you accept these terms, our <a href="privacy.html">Privacy Policy</a> and our <a href="disclaimers.html">Disclaimers</a>. If you do not agree, please do not use the Platform.</p>
+  </section>
+  <section id="not-a-law-firm">
+    <h2>2. The Platform is not a law firm</h2>
+    <p>We are not a law firm and we do not practice law. Nothing on the Platform is legal advice. No attorney-client relationship forms between you and us, no matter what you send us or what we send you.</p>
+    <p>The attorneys we introduce are independent. They are not our employees, partners or agents. We do not supervise their work and we are not responsible for it.</p>
+    <p class="why">Short version: not a law firm and not legal advice. We mean it.</p>
+  </section>
+  <section id="using-the-platform">
+    <h2>3. Using the Platform</h2>
+    <p>You must be 18 or older. The Platform is built for business use: for founders and operators of businesses that run on AI agents, and for licensed attorneys. It is not meant for personal, family or household matters.</p>
+    <p>There are no accounts, logins or passwords today. If we add them later, keeping yours secure will be your job.</p>
+    <p>When you use the Platform, you agree that you will:</p>
+    <ul>
+      <li>use it only for lawful purposes;</li>
+      <li>not scrape, crawl, copy or harvest its content or any contact details on it, by hand or by bot;</li>
+      <li>not interfere with how it works or try to get around any limit we put in place;</li>
+      <li>not pretend to be someone else, including an attorney you are not; and</li>
+      <li>not send confidential or privileged information through the Site or by email until you have engaged an attorney and that attorney has told you how to send it.</li>
+    </ul>
+  </section>
+  <section id="for-businesses">
+    <h2>4. For businesses: how introductions work</h2>
+    <p>Finding an attorney through the Platform is free for businesses. Matching currently covers New York, California, Texas and Nevada, with more states as attorneys join. If you are elsewhere, we will point you to your state bar's lawyer referral service.</p>
+    <p>Here is how it works. You answer a few short questions in the guided assistant. Nothing leaves your device until you choose to send those answers to us by email, from your own email client. We review your request. If we think there is a good fit, we reply by email with the contact details of an attorney licensed in your state. If we do not, we say so plainly.</p>
+    <p>We review attorneys before they receive introductions, but they remain independent. A match is not an endorsement, a recommendation or a guarantee of anything. You decide whether to contact the attorney and whether to hire them. You can check any attorney's licensure yourself with the state bar.</p>
+    <p>An attorney-client relationship begins only when you and that attorney sign an engagement letter. Fees, scope of work and anything confidential are between you and the attorney. We are not a party to that engagement. We take no share of any legal fee, and we charge attorneys nothing for introductions.</p>
+    <p>We cannot promise that we will find a match, that any attorney will respond, how quickly anyone will respond, or any result. We may decline any request, and we do not have to give a reason.</p>
+  </section>
+  <section id="for-attorneys">
+    <h2>5. For attorneys: the software</h2>
+    <p>If you are an attorney, the Platform is software. It turns your intake into a connector that AI agents can call, carrying your own disclaimers and engagement terms. These extra terms apply to you.</p>
+    <ul>
+      <li>You must be licensed and in good standing in every state you list, and you must tell us promptly if that changes.</li>
+      <li>Everything you send us about yourself and your practice must be accurate and publicly available. Never send us client information.</li>
+      <li>The software is a tool. You remain responsible for your professional-conduct and advertising rules, your engagement terms, your disclaimers and every piece of advice you give.</li>
+      <li>The content you give us for your connector stays yours. You give us permission to host it and use it to run the software for you.</li>
+      <li>We may accept or decline any application, and we may invite you to a video call before deciding.</li>
+    </ul>
+    <h3>Founding contributions and paid plans</h3>
+    <p>While the Platform is being built, there is no cash price for attorneys. Founding attorneys may contribute AI credits or usage toward building the Platform and receive early access to the software in return. How that works is set out in separate founding-attorney terms, which control over these terms if the two conflict.</p>
+    <p>A founding contribution is exchanged for early access to the software, and nothing else. It is not payment for introductions, and it does not affect whether, or how often, you receive them. Paid plans will come later, under terms published at that time.</p>
+  </section>
+  <section id="what-you-send-us">
+    <h2>6. What you send us</h2>
+    <p>Apart from the technical data described in section 9, the only way information reaches us is an email you choose to send. Email is not confidential and not privileged. Please do not include anything you would not want a stranger to read.</p>
+    <p>By sending us a match request or an attorney application, you give us permission to use what you send to handle it. For a match request, that includes sharing your answers with the attorney we introduce you to, so they know why you are getting in touch. You confirm that you have the right to share what you send, and that it is accurate as far as you know.</p>
+    <p>How we handle email, and the little else the Site collects, is explained in our <a href="privacy.html">Privacy Policy</a>.</p>
+  </section>
+  <section id="educational-content">
+    <h2>7. Educational content and the guided assistant</h2>
+    <p>The explainers, the self-audit and the guided assistant are educational. They are general, not tailored to your situation, and they can go out of date. The guided assistant is a scripted flow that runs in your browser. It is not a lawyer, and it is not a live AI model today. If we add a live assistant later, it will still not be a lawyer.</p>
+    <p>Do not rely on any of this content in place of advice from an attorney who knows your facts. Our <a href="disclaimers.html">Disclaimers</a> say more.</p>
+  </section>
+  <section id="our-content">
+    <h2>8. Our content and your license</h2>
+    <p>We own the Site, its text, design, code and graphics, the AgenticAttorney.com name and our marks, or we use them with permission. You may view the Site, and print or save pages, for your own use, including the internal use of your business. That is the whole license.</p>
+    <p>Without our written permission, you may not copy, republish, frame, sell or otherwise exploit our content, scrape it, or use it to train or fine-tune a machine learning model.</p>
+    <p>If you send us feedback or ideas, you let us use them freely, without payment or credit, now or later.</p>
+  </section>
+  <section id="third-party">
+    <h2>9. Third-party links and services</h2>
+    <p>The Site links to state bar lawyer referral services and other sites we do not control. A link is not an endorsement. Their terms and privacy practices apply when you are there.</p>
+    <p>The Site is hosted by Netlify and loads fonts from Google Fonts. Those services run under their own terms, and they handle some of your technical data when a page loads. Our <a href="privacy.html">Privacy Policy</a> explains what.</p>
+  </section>
+  <section id="no-warranties">
+    <h2>10. No warranties</h2>
+    <p>The Site is free and we built it to be useful, but we cannot promise it will be perfect.</p>
+    <p class="caps">The Platform is provided "as is" and "as available". To the fullest extent the law allows, we disclaim all warranties, express or implied, including any warranty of merchantability, fitness for a particular purpose, non-infringement, accuracy, and uninterrupted or error-free operation. We make no warranty about any attorney, any introduction or any result.</p>
+  </section>
+  <section id="limitation-of-liability">
+    <h2>11. Limitation of liability</h2>
+    <p class="caps">To the fullest extent the law allows, we are not liable for any indirect, incidental, special, consequential or punitive damages, or for any lost profits, revenue, data or goodwill, arising out of or related to the Platform or these terms, however caused and under any theory of liability. Our total liability to you for all claims together will not exceed one hundred US dollars.</p>
+    <p>Some places do not allow some of these limits. Where that is the case, these limits apply as far as the law permits. Nothing in these terms limits liability that cannot be limited by law.</p>
+    <p class="why">Why so low? The Site is free, and the real work happens between you and an attorney under an engagement letter.</p>
+  </section>
+  <section id="your-responsibility">
+    <h2>12. Your responsibility to us</h2>
+    <p>You agree to cover our losses and reasonable legal costs if someone brings a claim against us because of either of these:</p>
+    <ul>
+      <li>your unlawful use of the Platform; or</li>
+      <li>if you are an attorney user, false information you sent us about your licensure or standing.</li>
+    </ul>
+    <p>That is the whole list. We will tell you promptly about any such claim and let you take the lead on defending it if you want to.</p>
+  </section>
+  <section id="changes">
+    <h2>13. Changes and ending access</h2>
+    <p>We may change the Platform at any time, including adding, pausing or removing features, states or the software, and we may update these terms. When we do, we post the new version here with a new effective date. The new terms apply from that date, and if you keep using the Platform after it, you accept them.</p>
+    <p>We may limit, suspend or end your access to all or part of the Platform at any time, for example if you break these terms. Any part of these terms that by its nature should survive, including the sections on what you send us, our content, warranties, liability, your responsibility to us, and disputes, survives.</p>
+  </section>
+  <section id="governing-law">
+    <h2>14. Governing law and disputes</h2>
+    <p>These terms are governed by the laws of <span class="placeholder">[GOVERNING LAW STATE]</span>, without regard to its conflict-of-laws rules.</p>
+    <p>If you have a problem with us, email <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a> first and tell us what went wrong and what you want. We will do the same if we have a problem with you. Both sides agree to try in good faith, for 30 days from that email, to sort it out before starting any legal action.</p>
+    <p>If that does not work, any dispute will be heard in the state or federal courts located in <span class="placeholder">[VENUE]</span>, and you and we each agree to the personal jurisdiction of those courts. There is no arbitration clause in these terms and no class-action waiver. You keep your right to go to court.</p>
+  </section>
+  <section id="general">
+    <h2>15. General</h2>
+    <ul>
+      <li><strong>Entire agreement.</strong> These terms, the Privacy Policy, the Disclaimers and, for founding attorneys, the founding-attorney terms are the whole agreement between you and us about the Platform.</li>
+      <li><strong>Severability.</strong> If a court finds any part of these terms unenforceable, the rest still applies, and that part applies as far as the law allows.</li>
+      <li><strong>No waiver.</strong> If we do not enforce a term right away, we can still enforce it later.</li>
+      <li><strong>Assignment.</strong> You may not transfer these terms to anyone else. We may transfer them to a successor that takes over the Platform, and we will post a notice here if we do.</li>
+      <li><strong>No third-party beneficiaries.</strong> These terms are for you and us only. They give no rights to anyone else, including any attorney.</li>
+      <li><strong>Notices.</strong> Notices to us go by email to <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a> or by mail to <span class="placeholder">[MAILING ADDRESS]</span>. Notices to you go to the email address you used to contact us.</li>
+    </ul>
+  </section>
+  <section id="contact">
+    <h2>16. Contact</h2>
+    <p>Questions about these terms? Email <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a>, or write to <span class="placeholder">[LEGAL ENTITY NAME]</span>, <span class="placeholder">[MAILING ADDRESS]</span>. You can always head back <a href="./">home</a>.</p>
+  </section>
+  </div>
+
+  <footer class="foot">
+    <ul class="foot-links">
+      <li><a href="./">Home</a></li>
+      <li><a href="terms.html" aria-current="page">Terms of Use</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="disclaimers.html">Disclaimers</a></li>
+      <li><a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a></li>
+    </ul>
+    <p class="fineprint"><b>AgenticAttorney.com</b> is not a law firm and does not give legal advice. Matching currently covers New York, California, Texas and Nevada. No attorney-client relationship exists until you sign an engagement letter with an attorney.</p>
+  </footer>
+</main>
+
+<script src="/assets/terms-2.js"></script>
 </body>
 </html>

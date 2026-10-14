@@ -116,13 +116,23 @@ test.describe('phone width 360x780', () => {
 });
 
 test('legal routes and 404', async ({ page, request }) => {
+  const problems = [];
+  page.on('pageerror', (e) => problems.push('pageerror: ' + e.message));
+  page.on('console', (m) => { if (m.type() === 'error') problems.push('console: ' + m.text()); });
+  page.on('request', (r) => { if (!r.url().startsWith(page.url().split('/').slice(0, 3).join('/'))) problems.push('off-origin: ' + r.url()); });
   for (const [path, title] of [['/terms', 'Terms'], ['/privacy', 'Privacy'], ['/disclaimers', 'Disclaimers']]) {
     const res = await page.goto(path);
     expect(res?.status(), path).toBe(200);
     await expect(page.locator('h1')).toContainText(title);
     await expect(page).toHaveTitle(new RegExp(title));
-    await expect(page.locator('a[href="/"]').first()).toBeVisible();
+    // The legal pages link home with a relative "./"; the interim pages use "/".
+    await expect(page.locator('a[href="/"], a[href="./"]').first()).toBeVisible();
+    // Fonts must come from this origin and the strict CSP must hold on these pages too.
+    const fontOk = await page.evaluate(() => document.fonts.check('16px Newsreader'));
+    expect(fontOk, path + ' uses the self-hosted Newsreader').toBe(true);
+    await page.locator('#themeToggle').click().catch(() => {});
   }
+  expect(problems, 'no errors, CSP violations or off-origin requests on the legal pages').toEqual([]);
   const res = await page.goto('/nope');
   expect(res?.status()).toBe(404);
   await expect(page.locator('h1')).toContainText('does not exist');
