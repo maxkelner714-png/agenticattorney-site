@@ -1,0 +1,17 @@
+{
+  "name": "agenticattorney-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static site for AgenticAttorney.com, generated from src/prototype.html",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@fontsource-variable/geist": "^5.2.5",
+    "@fontsource-variable/newsreader": "^5.2.5",
+    "@playwright/test": "1.56.1"
+  }
+}

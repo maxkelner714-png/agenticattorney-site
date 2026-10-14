@@ -1,0 +1,5 @@
+# public/ is committed and already built, so Netlify runs no build command.
+# Headers and rewrites come from public/_headers and public/_redirects.
+[build]
+  publish = "public"
+  command = ""

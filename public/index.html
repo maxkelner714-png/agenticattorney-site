@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>AgenticAttorney.com: attorneys for businesses that run on AI agents</title>
+<meta name="description" content="AgenticAttorney.com is a free attorney-matching service for businesses that run on AI agents, covering New York, California, Texas and Nevada, and software for the attorneys who serve them. It is not a law firm.">
+<link rel="canonical" href="https://agenticattorney.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AgenticAttorney.com">
+<meta property="og:url" content="https://agenticattorney.com/">
+<meta property="og:title" content="AgenticAttorney.com: attorneys for businesses that run on AI agents">
+<meta property="og:description" content="AgenticAttorney.com is a free attorney-matching service for businesses that run on AI agents, covering New York, California, Texas and Nevada, and software for the attorneys who serve them. It is not a law firm.">
+<meta property="og:image" content="https://agenticattorney.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgenticAttorney.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AgenticAttorney.com: attorneys for businesses that run on AI agents">
+<meta name="twitter:description" content="AgenticAttorney.com is a free attorney-matching service for businesses that run on AI agents, covering New York, California, Texas and Nevada, and software for the attorneys who serve them. It is not a law firm.">
+<meta name="twitter:image" content="https://agenticattorney.com/og-image.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F3EC">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#262624">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+
+<script src="/assets/theme-init.js"></script>
+
+</head>
+<body>
+<noscript>
+<div class="noscript">
+<p>AgenticAttorney.com is a free matching service that connects businesses running on AI agents with attorneys in New York, California, Texas and Nevada, and it builds software for attorneys. This page needs JavaScript for the guided conversation, so please email <a href="mailto:info@agenticattorney.com">info@agenticattorney.com</a> instead.</p>
+<p>AgenticAttorney.com is not a law firm and does not give legal advice.</p>
+</div>
+</noscript>
+<div class="app" id="app">
+  <nav class="sidebar" id="sidebar" aria-label="Site">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">§</span>
+      <span class="brand-name">AgenticAttorney.com</span>
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Close navigation">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="aud-tabs" role="tablist" aria-label="Show the site for">
+      <button class="aud-tab" role="tab" type="button" id="tab-biz" data-aud="biz" aria-controls="navPanel" aria-selected="true">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="5" width="12" height="8.5" rx="1.5"/><path d="M5.5 5V3.5h5V5" stroke-linejoin="round"/></svg>
+        Businesses
+      </button>
+      <button class="aud-tab" role="tab" type="button" id="tab-att" data-aud="att" aria-controls="navPanel" aria-selected="false" tabindex="-1">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v12M4.5 14h7M2.5 4.5h11M2.5 4.5L1.2 8a1.6 1.6 0 0 0 2.6 0L2.5 4.5zM13.5 4.5L12.2 8a1.6 1.6 0 0 0 2.6 0l-1.3-3.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Attorneys
+      </button>
+    </div>
+
+    <div class="nav-panel" id="navPanel" role="tabpanel" aria-labelledby="tab-biz">
+      <button class="new-chat" id="newChat" type="button">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+        New conversation
+      </button>
+      <div class="nav-group" role="group" aria-labelledby="navStart">
+        <p class="nav-label" id="navStart">Start here</p>
+        <div id="startNav" class="nav-group"></div>
+      </div>
+      <div class="nav-group" id="learnGroup" role="group" aria-labelledby="navLearn">
+        <p class="nav-label" id="navLearn">Learn</p>
+        <div id="topicNav" class="nav-group"></div>
+      </div>
+    </div>
+
+    <div class="side-foot">
+      <button class="theme-toggle" id="themeToggle" type="button">
+        <span>Theme</span><span id="themeLabel">System</span>
+      </button>
+      <p class="fineprint" id="fineprint"></p>
+    </div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main" id="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke-linecap="round"/></svg>
+      </button>
+      <h1 class="top-title" id="topTitle">AgenticAttorney.com</h1>
+      <span class="pill" title="Answers follow a guided script">Guided</span>
+      <button class="top-cta" id="topCta" type="button" data-flow="match">Find an attorney</button>
+    </header>
+
+    <div class="scroll" id="scroll">
+      <section class="home" id="home" aria-labelledby="greeting">
+        <div class="aud-tabs home-tabs" role="tablist" aria-label="Show the site for">
+          <button class="aud-tab" role="tab" type="button" id="tab-biz-m" data-aud="biz" aria-controls="homePanel" aria-selected="true">Businesses</button>
+          <button class="aud-tab" role="tab" type="button" id="tab-att-m" data-aud="att" aria-controls="homePanel" aria-selected="false" tabindex="-1">Attorneys</button>
+        </div>
+        <div class="home-panel" id="homePanel" role="tabpanel" aria-labelledby="tab-biz-m">
+        <p class="eyebrow" id="eyebrow"></p>
+        <h2 class="greeting" id="greeting"><span class="mark" aria-hidden="true">§</span><span id="greetText"></span></h2>
+        <div id="homeSlot"></div>
+        <p class="home-note" id="homeNote"></p>
+        <div class="starters" id="starters"></div>
+        <p class="legal" id="homeLegal"></p>
+        </div>
+      </section>
+
+      <div class="thread" id="thread" role="log" aria-live="polite" aria-label="Conversation"></div>
+      <div class="choices" id="choices"></div>
+    </div>
+
+    <div class="dock">
+      <div class="dock-inner">
+        <div id="dockSlot"></div>
+        <p class="legal" id="dockLegal"></p>
+      </div>
+    </div>
+
+    <form class="composer" id="composer" autocomplete="off">
+      <label class="sr-only" for="input">Message</label>
+      <textarea id="input" rows="1" placeholder=""></textarea>
+      <div class="composer-row">
+        <span class="composer-hint">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 7.2v3.6M8 5.2v.1" stroke-linecap="round"/></svg>
+          <span id="hintText"></span>
+        </span>
+        <button class="send" id="send" type="submit" aria-label="Send message" disabled>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </form>
+  </main>
+</div>
+<script src="/assets/app.js"></script>
+</body>
+</html>
