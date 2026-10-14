@@ -14,7 +14,7 @@
   const ph = (label) => '<span class="placeholder">[' + label + ']</span>';
   const EMAIL = 'info@agenticattorney.com';
   const COVERED = ['New York', 'California', 'Texas', 'Nevada'];
-  const mailLink = (subject, body, label) => '<a class="mail-btn" target="_blank" rel="noopener" href="mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + (body ? '&body=' + encodeURIComponent(body) : '') + '">' + esc(label) + '</a>';
+  const mailLink = (subject, body, label) => '<a class="mail-btn" href="mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + (body ? '&body=' + encodeURIComponent(body) : '') + '">' + esc(label) + '</a>';
 
   /* ---------- Content (placeholders in brackets) ---------- */
   const Q = {
@@ -370,6 +370,19 @@
   const STATE_CODES = 'al ak az ar ca co ct de dc fl ga hi id il in ia ks ky la me md ma mi mn ms mo mt ne nv nh nj nm ny nc nd oh ok or pa pr ri sc sd tn tx ut vt va wa wv wi wy'.split(' ');
   const STATE_NAME = new RegExp('^(' + STATE_NAMES.map((n) => n.split(' ').pop()).join('|') + ')$', 'i');
   const isState = (l) => STATE_NAMES.includes(l) || STATE_CODES.includes(l.replace(/\./g, ''));
+  const titleState = (n) => n.replace(/\b[a-z]/g, (c) => c.toUpperCase()).replace(' Of ', ' of ');
+  const STATE_BY_CODE = Object.fromEntries(STATE_CODES.map((c, i) => [c, STATE_NAMES[i]]));
+  /* A state mentioned inside a sentence ("I'm in Florida, can you help?") or typed as a code (FL, N.Y.) */
+  function findState(text) {
+    const l = norm(text).replace(/\./g, '');
+    if (STATE_NAMES.includes(l)) return titleState(l);
+    if (STATE_CODES.includes(l)) return titleState(STATE_BY_CODE[l]);
+    const long = STATE_NAMES.slice().sort((a, b) => b.length - a.length).find((n) => new RegExp('\\b' + n + '\\b').test(l));
+    if (long) return titleState(long);
+    const code = (text.match(/\b([A-Z]{2})\b/g) || []).map((c) => c.toLowerCase()).find((c) => STATE_CODES.includes(c));
+    return code ? titleState(STATE_BY_CODE[code]) : null;
+  }
+  const ABROAD_RE = /\b(outside (of )?the (us|usa|united states)|not in the (us|usa|united states)|abroad|overseas|international(ly)?|canada|mexico|europe|the uk|united kingdom|australia|india)\b/;
   const GENERIC_BEFORE_ENTITY = /^(a|an|the|my|our|this|that|new|series|single-member|multi-member|ai|ai-run|agentic|professional|an?)$/i;
 
   /* Narrow on purpose: identifying details only, so ordinary questions about price or forming an LLC still get answered */
@@ -546,7 +559,7 @@
         { label: 'The four steps', value: 'intro' },
         { label: 'Is this a law firm?', value: 'firm' },
         { label: 'What does it cost?', value: 'cost' },
-        { label: 'Why these attorneys?', value: 'why' },
+        { label: 'How are attorneys chosen?', value: 'why' },
         { label: 'Is my information private?', value: 'privacy' },
         { label: 'How fast will I hear back?', value: 'speed' },
         { label: "What if I'm not in a covered state?", value: 'states' },
@@ -556,7 +569,7 @@
         states: "<p>Matching currently covers New York, California, Texas and Nevada, with more states as attorneys join. If you are elsewhere, the free self-audit and the explainers still apply, your state bar's lawyer referral service can point you to a local attorney now, and you can email us to hear when your state is covered.</p>",
         firm: "<p>No. AgenticAttorney.com is not a law firm and doesn't give legal advice. The attorney you're matched with is independent, and a match isn't an endorsement. An attorney-client relationship starts only when you sign an engagement letter with one of them.</p>",
         cost: "<p>Finding an attorney on AgenticAttorney.com is free for businesses. Each attorney sets their own fees and explains them before you engage.</p>",
-        why: '<p>Every attorney is reviewed before receiving matches.</p><ul><li><b>Tech-native.</b> They work with APIs, MCP servers, plugins and agent harnesses.</li><li><b>Careful with your data.</b> They plug into your systems to do the work, instead of asking you to upload your secrets to a bot.</li><li><b>Focused.</b> Contracts, company structure, disputes, and the legal risk of running on agents.</li></ul>',
+        why: '<p>Attorneys are reviewed before they receive matches. We look for three things.</p><ul><li><b>Comfortable with agents.</b> Attorneys who work with APIs, MCP servers and agent tools.</li><li><b>Careful with your data.</b> Attorneys who prefer working inside your systems over collecting your files.</li><li><b>Focused.</b> Contracts, company structure, disputes, and the risks of running on agents.</li></ul>',
         privacy: "<p>This chat isn't privileged, so it never asks for names, contract text or figures. In this preview, your answers stay in your browser tab and aren't sent anywhere. Confidential details are for the attorney you engage, once the engagement letter is signed.</p>",
       };
       return faq(t, opts, intro, subs, answers, { label: 'Find an attorney', value: 'match', primary: true }, 'how');
@@ -698,8 +711,11 @@
       const match = pending.options.find((o) => matches(o, l));
       if (match) { pending.choose(match, text); return; }
       if (pending.freeText) {
-        if (looksConfidential(text) || !isState(norm(text))) pending.nudge(text);
-        else pending.choose({ label: text, value: text.replace(/[.!?,]+$/g, '').trim() }, text);
+        const st = looksConfidential(text) ? null : findState(text);
+        const abroad = pending.options.find((o) => o.value === 'abroad');
+        if (!st && abroad && ABROAD_RE.test(l)) pending.choose(abroad, text);
+        else if (!st) pending.nudge(text);
+        else pending.choose(pending.options.find((o) => o.value === st) || { label: st, value: st }, text);
         return;
       }
       if (pending.strict) { pending.nudge(text); return; }

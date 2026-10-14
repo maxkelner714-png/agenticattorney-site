@@ -115,11 +115,12 @@ test.describe('phone width 360x780', () => {
   });
 });
 
-test('legal routes and 404', async ({ page, request }) => {
+test('legal routes and 404', async ({ page, request, baseURL }) => {
   const problems = [];
+  const origin = new URL(baseURL).origin;
   page.on('pageerror', (e) => problems.push('pageerror: ' + e.message));
   page.on('console', (m) => { if (m.type() === 'error') problems.push('console: ' + m.text()); });
-  page.on('request', (r) => { if (!r.url().startsWith(page.url().split('/').slice(0, 3).join('/'))) problems.push('off-origin: ' + r.url()); });
+  page.on('request', (r) => { if (new URL(r.url()).origin !== origin) problems.push('off-origin: ' + r.url()); });
   for (const [path, title] of [['/terms', 'Terms'], ['/privacy', 'Privacy'], ['/disclaimers', 'Disclaimers']]) {
     const res = await page.goto(path);
     expect(res?.status(), path).toBe(200);
