@@ -137,7 +137,7 @@ test('headers and noscript', async ({ request }) => {
   expect(html).toContain('<noscript>');
   expect(html).toContain(EMAIL);
   expect(html).toContain('not a law firm');
-  expect(html).not.toMatch(/<script>|on[a-z]+="/);
+  expect(html).not.toMatch(/<script>|\son[a-z]+="/);
   expect(r.headers()['content-security-policy']).toContain("script-src 'self'");
   expect(r.headers()['x-content-type-options']).toBe('nosniff');
   const f = await request.get('/assets/fonts/geist-latin-wght-normal.woff2');
