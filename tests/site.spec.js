@@ -144,6 +144,9 @@ test('legal routes and 404', async ({ page, request, baseURL }) => {
 
 test('headers and noscript', async ({ request }) => {
   const r = await request.get('/');
+  const ld = (await r.text()).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  expect(ld, 'JSON-LD present').toBeTruthy();
+  expect(JSON.parse(ld[1])['@graph'].map((n) => n['@type'])).toEqual(['WebSite', 'Organization']);
   const html = await r.text();
   expect(html).toContain('<noscript>');
   expect(html).toContain(EMAIL);

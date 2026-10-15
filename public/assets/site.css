@@ -136,7 +136,7 @@ a { color: var(--accent-hover); text-underline-offset: 2px; }
 .site-links { display: flex; align-items: center; gap: 6px; font-size: 11.5px; line-height: 1.4; color: var(--muted); margin: 0; }
 .site-links a { color: inherit; text-decoration: none; }
 .site-links span { opacity: .6; }
-.home-links { justify-content: center; margin-top: -8px; }
+.home-links { justify-content: center; flex-wrap: wrap; margin-top: -8px; }
 @media (hover: hover) { .site-links a:hover { color: var(--fg); text-decoration: underline; } }
 
 /* Main */
