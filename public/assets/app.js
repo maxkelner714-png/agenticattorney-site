@@ -377,6 +377,7 @@
     const l = norm(text).replace(/\./g, '');
     if (STATE_NAMES.includes(l)) return titleState(l);
     if (STATE_CODES.includes(l)) return titleState(STATE_BY_CODE[l]);
+    if (/\bwashington,? dc\b/.test(l)) return titleState('district of columbia');
     const long = STATE_NAMES.slice().sort((a, b) => b.length - a.length).find((n) => new RegExp('\\b' + n + '\\b').test(l));
     if (long) return titleState(long);
     const code = (text.match(/\b([A-Z]{2})\b/g) || []).map((c) => c.toLowerCase()).find((c) => STATE_CODES.includes(c));
