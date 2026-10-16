@@ -232,7 +232,7 @@ writeFileSync(join(PUB, 'index.html'), shell({
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'WebSite', name: 'AgenticAttorney.com', url: `${SITE}/`, description: DESCRIPTION },
-      { '@type': 'Organization', name: 'AgenticAttorney.com', url: `${SITE}/`, email: EMAIL,
+      { '@type': 'Organization', name: 'AgenticAttorney.com', legalName: 'Agentic Attorney LLC', url: `${SITE}/`, email: EMAIL,
         logo: existsSync(join(PUB, 'icon-512.png')) ? `${SITE}/icon-512.png` : undefined,
         areaServed: ['New York', 'California', 'Texas', 'Nevada'].map((name) => ({ '@type': 'State', name })) },
     ],
